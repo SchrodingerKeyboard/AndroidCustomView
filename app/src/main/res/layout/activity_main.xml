@@ -10,35 +10,13 @@
         android:layout_height="match_parent"
         android:background="@color/black">
 
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/main_nav_graph" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_light"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:context=".MainActivity">
-
-            <Button
-                android:id="@+id/clickText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="点击有惊喜"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.schrodinger.androidcustomview.views.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clickText" />
-
-
-            <com.schrodinger.androidcustomview.views.CustomTextView
-                style="@style/CustomTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clickText" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
