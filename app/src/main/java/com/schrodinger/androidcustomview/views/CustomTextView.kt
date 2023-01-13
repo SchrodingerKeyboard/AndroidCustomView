@@ -2,30 +2,39 @@ package com.schrodinger.androidcustomview.views
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import java.util.Date
 
 class CustomTextView : View {
 
-    val TAG = "CustomTextView"
+    private val TAG = "CustomTextView"
+    private val textPaint = Paint()
+    private val text = "Hello world"
+
     //代码里new的时候调用
-    constructor(context: Context?) : super(context) {
+    constructor(context: Context?) : this(context,null) {
         Log.d(TAG,"constructor 1 ${Date().time}")
     }
 
     /**
      * 在xml布局文件中使用时自动调用
      */
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs,0) {
         Log.d(TAG,"constructor 2 ${Date().time}")
     }
 
     /**
      * 不会自动调用，如果有默认style时，在第二个构造函数中调用
      */
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr,0) {
         Log.d(TAG,"constructor 3 ${Date().time}")
     }
 
@@ -40,6 +49,21 @@ class CustomTextView : View {
         defStyleRes
     ) {
         Log.d(TAG,"constructor 4 ${Date().time}")
+        textPaint.apply {
+            color = Color.RED
+            textSize =  18f
+            isAntiAlias = true
+        }
+    }
+
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        Log.d(TAG,"CustomTextView onDraw")
+        val fontMetrics = textPaint.fontMetricsInt
+        val dy = (fontMetrics.bottom - fontMetrics.top)/2 - fontMetrics.bottom
+        val baseline = height / 2 + dy
+        val x = getPaddingLeft()
+        canvas?.drawText(text,x.toFloat(),baseline.toFloat(),textPaint)
     }
 
     /**
@@ -58,5 +82,20 @@ class CustomTextView : View {
         Log.d(TAG,"heightMeasureSpec getSize:${MeasureSpec.getSize(heightMeasureSpec)}")
 //        var heightMeasureSpec = MeasureSpec.makeMeasureSpec(Int.MAX_VALUE shr 2,MeasureSpec.AT_MOST)
 //        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+//算出文本需要占用的宽高
+        var width = MeasureSpec.getSize(widthMeasureSpec)
+        var height = MeasureSpec.getSize(heightMeasureSpec)
+        val rect = Rect()
+        textPaint.getTextBounds(text,0,text.length,rect)
+        Log.d(TAG,"Rect width:${rect.width()}\theight:${rect.height()}")
+        if(widthMode == MeasureSpec.AT_MOST) {
+            width = rect.width()
+        }
+        if(heightMode == MeasureSpec.AT_MOST) {
+            height = rect.height()
+        }
+        Log.d(TAG,"setMeasuredDimension width:$width\theight:$height")
+        setMeasuredDimension(width,height)
     }
 }

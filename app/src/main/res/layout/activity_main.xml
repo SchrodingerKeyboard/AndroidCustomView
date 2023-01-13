@@ -8,37 +8,27 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        android:background="@color/white">
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
+        <Button
+            android:id="@+id/clickText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_light"
+            android:text="点击有惊喜"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:context=".MainActivity">
+            app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:text="secondView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/clickText"
+            app:layout_constraintStart_toStartOf="parent"/>
 
-            <Button
-                android:id="@+id/clickText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="点击有惊喜"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <com.schrodinger.androidcustomview.views.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/clickText"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <com.schrodinger.androidcustomview.views.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clickText" />
-
-
-            <com.schrodinger.androidcustomview.views.CustomTextView
-                style="@style/CustomTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clickText" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
