@@ -17,18 +17,28 @@
             android:text="点击有惊喜"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <Button
-            android:text="secondView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/clickText"
-            app:layout_constraintStart_toStartOf="parent"/>
+
+
 
         <com.schrodinger.androidcustomview.views.CustomTextView
+            android:id="@+id/customTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/clickText"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <com.schrodinger.androidcustomview.views.QQStepView
+            android:id="@+id/qqStepView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:outerColor="@android:color/holo_red_light"
+            app:innerColor="@android:color/holo_blue_light"
+            app:borderWidth="10dp"
+            app:stepTextSize="20sp"
+            app:stepTextColor="@android:color/holo_red_light"
+
+            app:layout_constraintTop_toBottomOf="@id/customTextView"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
