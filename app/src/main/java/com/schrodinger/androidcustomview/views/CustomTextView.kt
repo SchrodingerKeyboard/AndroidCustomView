@@ -1,7 +1,6 @@
 package com.schrodinger.androidcustomview.views
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -9,8 +8,6 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import java.util.Date
 
 class CustomTextView : View {
@@ -49,11 +46,18 @@ class CustomTextView : View {
         defStyleRes
     ) {
         Log.d(TAG,"constructor 4 ${Date().time}")
+        //初始化 Paint 画笔
         textPaint.apply {
             color = Color.RED
             textSize =  18f
             isAntiAlias = true
         }
+    }
+
+    override fun dispatchDraw(canvas: Canvas?) {
+        super.dispatchDraw(canvas)
+        //某些安卓sdk版本ViewGroup不调用onDraw,可以把逻辑写到这里来，或者处理其他
+        Log.d(TAG,"CustomTextView dispatchDraw")
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -66,6 +70,7 @@ class CustomTextView : View {
         canvas?.drawText(text,x.toFloat(),baseline.toFloat(),textPaint)
     }
 
+    private val textRect = Rect()
     /**
      * 自定义View的测量方法
      */
@@ -86,14 +91,14 @@ class CustomTextView : View {
 //算出文本需要占用的宽高
         var width = MeasureSpec.getSize(widthMeasureSpec)
         var height = MeasureSpec.getSize(heightMeasureSpec)
-        val rect = Rect()
-        textPaint.getTextBounds(text,0,text.length,rect)
-        Log.d(TAG,"Rect width:${rect.width()}\theight:${rect.height()}")
+
+        textPaint.getTextBounds(text,0,text.length,textRect)
+        Log.d(TAG,"Rect width:${textRect.width()}\theight:${textRect.height()}")
         if(widthMode == MeasureSpec.AT_MOST) {
-            width = rect.width()
+            width = textRect.width()
         }
         if(heightMode == MeasureSpec.AT_MOST) {
-            height = rect.height()
+            height = textRect.height()
         }
         Log.d(TAG,"setMeasuredDimension width:$width\theight:$height")
         setMeasuredDimension(width,height)
