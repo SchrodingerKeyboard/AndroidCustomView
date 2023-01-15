@@ -28,5 +28,9 @@ class MainActivity : AppCompatActivity() {
             binding.qqStepView.setCurProgressStep(value)
         }
         valueAnimator.start()
+
+        binding.clickText.setOnClickListener {
+            binding.qqStepView.invalidate()
+        }
     }
 }
