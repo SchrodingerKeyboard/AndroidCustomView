@@ -7,4 +7,11 @@
         <attr name="stepTextSize" format="dimension"/>
         <attr name="stepTextColor" format="color"/>
     </declare-styleable>
+    <declare-styleable name="CustomProgressBar">
+        <attr name="progressInnerColor" format="color"/>
+        <attr name="progressOuterColor" format="color"/>
+        <attr name="progressBorderWidth" format="dimension"/>
+        <attr name="progressTextSize" format="dimension"/>
+        <attr name="progressTextColor" format="dimension"/>
+    </declare-styleable>
 </resources>

@@ -3,11 +3,13 @@ package com.schrodinger.androidcustomview.views
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import com.schrodinger.androidcustomview.R
 
 class QQStepView : View {
 
+    private val TAG = "QQStepViewTAG"
     private var outerColor: Int = Color.RED
     private var innerColor: Int = Color.BLUE
     private var borderWidth:Float = 20.0f
@@ -31,7 +33,6 @@ class QQStepView : View {
     private var maxStep:Float = 100.0f
     //当前进度
     private var curProgressStep:Float = 60.0f
-
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -64,7 +65,7 @@ class QQStepView : View {
 
         innerPaint = Paint(outerPaint)
         innerPaint.color = innerColor
-        innerPaint.strokeWidth = borderWidth * 0.8f
+        innerPaint.strokeWidth = borderWidth
 
         textPaint = Paint()
         textPaint.isAntiAlias = true
@@ -106,17 +107,12 @@ class QQStepView : View {
 
         val mStep = ((percent * maxStep)).toInt().toString() + ""
         // 测量文字的宽高
-        // 测量文字的宽高
-
         textPaint.getTextBounds(mStep, 0, mStep.length, textBounds)
         val dx: Int = (width - textBounds.width()) / 2
         // 获取画笔的FontMetrics
-        // 获取画笔的FontMetrics
         val fontMetrics: Paint.FontMetrics = textPaint.getFontMetrics()
         // 计算文字的基线
-        // 计算文字的基线
         val baseLine = (height / 2 + (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom).toInt()
-        // 绘制步数文字
         // 绘制步数文字
         canvas?.drawText(mStep, dx.toFloat(), baseLine.toFloat(), textPaint)
     }
@@ -130,6 +126,7 @@ class QQStepView : View {
         val width = MeasureSpec.getSize(widthMeasureSpec)
         val height = MeasureSpec.getSize(heightMeasureSpec)
         val value = if(width > height) height else width
+        Log.d(TAG,"onMeasure widthMeasureSpec:${MeasureSpec.toString(widthMeasureSpec)}\theightMeasureSpec:${MeasureSpec.toString(heightMeasureSpec)}\twidth:$width\theight:$height")
         setMeasuredDimension(value,value)
     }
 

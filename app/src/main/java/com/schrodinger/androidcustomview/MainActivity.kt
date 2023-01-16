@@ -30,8 +30,9 @@ class MainActivity : AppCompatActivity() {
         valueAnimator.interpolator = LinearInterpolator()
         valueAnimator.addUpdateListener {
             val value = it.animatedValue as Float
-            Log.d("MainActivity","animatedValue:$value")
+            Log.d(TAG,"animatedValue:$value")
             binding.qqStepView.setCurProgressStep(value)
+            binding.customProgressBar.setCurrentProgress(value.toInt())
         }
         valueAnimator.start()
 

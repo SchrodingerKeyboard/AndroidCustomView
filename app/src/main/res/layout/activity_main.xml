@@ -71,5 +71,18 @@
             app:layout_constraintStart_toEndOf="@id/clickRight"
             app:layout_constraintTop_toBottomOf="@id/colorTrackTextView" />
 
+        <com.schrodinger.androidcustomview.views.CustomProgressBar
+            android:id="@+id/customProgressBar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+
+            app:progressBorderWidth="10dp"
+            app:progressTextSize="30sp"
+            app:progressInnerColor="@android:color/holo_red_light"
+            app:progressOuterColor="@android:color/holo_blue_light"
+            app:progressTextColor="@android:color/holo_red_light"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clickLeft"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
