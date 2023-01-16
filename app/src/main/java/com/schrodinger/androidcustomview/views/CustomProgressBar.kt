@@ -14,6 +14,7 @@ class CustomProgressBar : View {
     private var innerColor: Int = Color.RED
     private var outerColor: Int = Color.BLUE
     private var progressTextColor: Int = 10
+    //单位最好都使用float，因为精度高
     private var borderWidth: Float = 10.0f
     private var progressTextSize: Float = 12.0f
 
@@ -67,7 +68,7 @@ class CustomProgressBar : View {
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         val halfBorderWidth = borderWidth / 2
-        //画外圆 注意要在这里开始转成float，不要先转成int,再toFloat,不然会丢失精度。
+        //画外圆 注意要在这里开始转成float，不要先转成int,再toFloat,不然会丢失精度，到时候就会造成两个圆差几个px的问题。
         val cx = width / 2.0f
         val cy = height / 2.0f
         val radius = width / 2.0f - halfBorderWidth
@@ -86,7 +87,7 @@ class CustomProgressBar : View {
         Log.d(TAG, "width:$width\theight:$height\tcx:$cx\tcy:$cy\tradius:$radius\thalfBorderWidth:$halfBorderWidth\tcurrentProgress:$currentProgress\tmaxProgress:$maxProgress")
 
         //画文本
-        val text = ((currentProgress / maxProgress.toFloat()) * 100).toInt().toString()
+        val text = "${((currentProgress / maxProgress.toFloat()) * 100).toInt().toString()}%"
         progressTextPaint.getTextBounds(text, 0, text.length, textBounds)
         val dx = width / 2.0f - textBounds.width() / 2.0f
         // 获取画笔的FontMetrics

@@ -25,16 +25,10 @@ class MainActivity : AppCompatActivity() {
             CustomTextView(context = this@MainActivity)
         }
 
-        val valueAnimator = ValueAnimator.ofFloat(100f)
-        valueAnimator.duration = 5*1000
-        valueAnimator.interpolator = LinearInterpolator()
-        valueAnimator.addUpdateListener {
-            val value = it.animatedValue as Float
-            Log.d(TAG,"animatedValue:$value")
-            binding.qqStepView.setCurProgressStep(value)
-            binding.customProgressBar.setCurrentProgress(value.toInt())
+        playAnim(binding)
+        binding.clickPlayAnim.setOnClickListener {
+            playAnim(binding)
         }
-        valueAnimator.start()
 
         binding.clickText.setOnClickListener {
             binding.qqStepView.invalidate()
@@ -48,6 +42,26 @@ class MainActivity : AppCompatActivity() {
         binding.colorTrackActivity.setOnClickListener {
             startActivity(Intent(this@MainActivity,ViewPagerColorTrackTextViewActivity::class.java))
         }
+    }
+
+    private fun playAnim(binding: ActivityMainBinding) {
+        binding.qqStepView.clearAnimation()
+        binding.customProgressBar.clearAnimation()
+        val valueAnimator = ValueAnimator.ofFloat(100f)
+        valueAnimator.duration = 5 * 1000
+        valueAnimator.interpolator = LinearInterpolator()
+        var oldValue = 0.0f
+        valueAnimator.addUpdateListener {
+            val value = it.animatedValue as Float
+            Log.d(TAG, "animatedValue:$value")
+            binding.qqStepView.setCurProgressStep(value)
+            binding.customProgressBar.setCurrentProgress(value.toInt())
+            if(value - oldValue > 10) {
+                oldValue = value
+                binding.shapeView.changeShape()
+            }
+        }
+        valueAnimator.start()
     }
 
     // onClick事件写在了不居中  --> android:onClick="left"

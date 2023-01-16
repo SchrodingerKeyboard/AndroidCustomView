@@ -17,6 +17,13 @@
             android:text="点击有惊喜"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/clickPlayAnim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="播放动画"
+            app:layout_constraintStart_toEndOf="@id/clickText"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.schrodinger.androidcustomview.views.CustomTextView
             android:id="@+id/customTextView"
@@ -77,12 +84,18 @@
             android:layout_height="100dp"
 
             app:progressBorderWidth="10dp"
-            app:progressTextSize="30sp"
+            app:progressTextSize="20sp"
             app:progressInnerColor="@android:color/holo_red_light"
             app:progressOuterColor="@android:color/holo_blue_light"
             app:progressTextColor="@android:color/holo_red_light"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/clickLeft"/>
+        <com.schrodinger.androidcustomview.views.ShapeView
+            android:id="@+id/shapeView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/customProgressBar"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
