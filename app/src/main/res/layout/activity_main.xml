@@ -18,8 +18,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-
         <com.schrodinger.androidcustomview.views.CustomTextView
             android:id="@+id/customTextView"
             android:layout_width="wrap_content"
@@ -48,5 +46,30 @@
             android:text="Hello World"
             app:layout_constraintTop_toBottomOf="@id/qqStepView"
             app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+            android:id="@+id/clickLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="左边"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/colorTrackTextView" />
+
+        <Button
+            android:id="@+id/clickRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="右边"
+            app:layout_constraintStart_toEndOf="@id/clickLeft"
+            app:layout_constraintTop_toBottomOf="@id/colorTrackTextView" />
+
+        <Button
+            android:id="@+id/colorTrackActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activity"
+            app:layout_constraintStart_toEndOf="@id/clickRight"
+            app:layout_constraintTop_toBottomOf="@id/colorTrackTextView" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
