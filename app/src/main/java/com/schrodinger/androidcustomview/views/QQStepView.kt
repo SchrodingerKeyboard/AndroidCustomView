@@ -118,7 +118,8 @@ class QQStepView : View {
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        //内部就是调用setMeasuredDimension，后面主动调用了setMeasuredDimension，所以这里可以注释掉
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         //处理要xml里没有指定宽高，而是wrap_content
         //获取模式 AT_MOST 默认给40dp
 

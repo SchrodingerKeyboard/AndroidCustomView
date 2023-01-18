@@ -90,7 +90,7 @@ class ShapeView : View {
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         //处理要xml里没有指定宽高，而是wrap_content
         //获取模式 AT_MOST 默认给40dp
 

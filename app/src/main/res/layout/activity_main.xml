@@ -102,6 +102,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/darker_gray"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
             app:starCount="5"
             app:starSize="30dp"
             app:starInterval="5dp"
@@ -109,6 +111,17 @@
             app:selectedDrawable="@drawable/star_selected"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/shapeView"/>
-
+        <com.schrodinger.androidcustomview.views.LetterSideBar
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:letterNormalColor="@color/black"
+            app:letterSelectedColor="@android:color/holo_red_light"
+            app:letterTextSize="12sp"
+            android:layout_marginTop="10dp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
+            android:layout_marginBottom="10dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

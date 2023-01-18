@@ -21,4 +21,9 @@
         <attr name="starSize" format="dimension"/>
         <attr name="starInterval" format="dimension"/>
     </declare-styleable>
+    <declare-styleable name="LetterSideBar">
+        <attr name="letterNormalColor" format="color" />
+        <attr name="letterSelectedColor" format="color" />
+        <attr name="letterTextSize" format="dimension"/>
+    </declare-styleable>
 </resources>
