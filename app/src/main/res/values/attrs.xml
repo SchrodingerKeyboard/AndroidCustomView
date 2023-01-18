@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="QQStepView">
-        <attr name="outerColor" format="color"/>
-        <attr name="innerColor" format="color"/>
-        <attr name="borderWidth" format="dimension"/>
-        <attr name="stepTextSize" format="dimension"/>
-        <attr name="stepTextColor" format="color"/>
+        <attr name="outerColor" format="color" />
+        <attr name="innerColor" format="color" />
+        <attr name="borderWidth" format="dimension" />
+        <attr name="stepTextSize" format="dimension" />
+        <attr name="stepTextColor" format="color" />
     </declare-styleable>
     <declare-styleable name="CustomProgressBar">
-        <attr name="progressInnerColor" format="color"/>
-        <attr name="progressOuterColor" format="color"/>
-        <attr name="progressBorderWidth" format="dimension"/>
-        <attr name="progressTextSize" format="dimension"/>
-        <attr name="progressTextColor" format="dimension"/>
+        <attr name="progressInnerColor" format="color" />
+        <attr name="progressOuterColor" format="color" />
+        <attr name="progressBorderWidth" format="dimension" />
+        <attr name="progressTextSize" format="dimension" />
+        <attr name="progressTextColor" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="RatingView">
+        <attr name="starCount" format="integer" />
+        <attr name="selectedDrawable" format="reference" />
+        <attr name="normalDrawable" format="reference" />
+        <attr name="starSize" format="dimension"/>
+        <attr name="starInterval" format="dimension"/>
     </declare-styleable>
 </resources>

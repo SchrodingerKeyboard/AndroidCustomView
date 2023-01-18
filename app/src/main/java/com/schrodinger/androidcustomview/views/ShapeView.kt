@@ -8,6 +8,7 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 
 class ShapeView : View {
@@ -51,6 +52,7 @@ class ShapeView : View {
                 trianglePath.apply {
                     //这样画是等腰三角形，需要画成等边三角形才好看
 //                    val triangleHeight = width
+                    //Math.sqrt(3.0) 根号3，开平方3
                     val triangleHeight = (width/2.0 * Math.sqrt(3.0)).toFloat()
                     moveTo(width/2.0f,0.0f)
                     lineTo(width.toFloat(),triangleHeight)
@@ -81,6 +83,10 @@ class ShapeView : View {
             }
         }
         invalidate()
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return super.onTouchEvent(event)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
