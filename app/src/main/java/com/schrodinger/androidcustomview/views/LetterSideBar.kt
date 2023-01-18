@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -20,6 +21,7 @@ class LetterSideBar : View {
     private var letterTextSize: Float = 12.0f
     private val textPaint = Paint().apply {
         isAntiAlias = true
+        typeface = Typeface.DEFAULT_BOLD
     }
     private var selectedPosition: Int = -1
     private val letterList = mutableListOf<Char>().apply {
@@ -53,6 +55,7 @@ class LetterSideBar : View {
             val text = char.toString()
             val textWidth = textPaint.measureText(text)
             val start = (measuredWidth - textWidth) / 2.0f
+            //这里效果更好的话，可以先画一个圆形背景
             textPaint.color = if (index == selectedPosition) letterSelectedColor else letterNormalColor
             canvas?.drawText(text, start, itemHeight * index + textPaint.getBaseLine(itemHeight / 2), textPaint)
         }

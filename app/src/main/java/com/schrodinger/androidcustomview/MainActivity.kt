@@ -16,49 +16,59 @@ import com.schrodinger.androidcustomview.views.CustomTextView
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivityTAG";
     private var colorTrackTextView:ColorTrackTextView? = null
+    private var binding:ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        colorTrackTextView = binding.colorTrackTextView
-        setContentView(binding.root)
-        binding.clickText.setOnClickListener {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        colorTrackTextView = binding?.colorTrackTextView
+        Log.d(TAG,"height:${binding?.colorTrackTextView?.measuredHeight}")
+        binding?.root?.post {
+            Log.d(TAG,"height2:${binding?.colorTrackTextView?.measuredHeight}")
+        }
+        setContentView(binding?.root)
+        binding?.clickText?.setOnClickListener {
             CustomTextView(context = this@MainActivity)
         }
 
         playAnim(binding)
-        binding.clickPlayAnim.setOnClickListener {
+        binding?.clickPlayAnim?.setOnClickListener {
             playAnim(binding)
         }
 
-        binding.clickText.setOnClickListener {
-            binding.qqStepView.invalidate()
+        binding?.clickText?.setOnClickListener {
+            binding?.qqStepView?.invalidate()
         }
-        binding.clickLeft.setOnClickListener {
+        binding?.clickLeft?.setOnClickListener {
             left()
         }
-        binding.clickRight.setOnClickListener {
+        binding?.clickRight?.setOnClickListener {
             right()
         }
-        binding.colorTrackActivity.setOnClickListener {
+        binding?.colorTrackActivity?.setOnClickListener {
             startActivity(Intent(this@MainActivity,ViewPagerColorTrackTextViewActivity::class.java))
         }
     }
 
-    private fun playAnim(binding: ActivityMainBinding) {
-        binding.qqStepView.clearAnimation()
-        binding.customProgressBar.clearAnimation()
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG,"height3:${binding?.colorTrackTextView?.measuredHeight}")
+    }
+
+    private fun playAnim(binding: ActivityMainBinding?) {
+        binding?.qqStepView?.clearAnimation()
+        binding?.customProgressBar?.clearAnimation()
         val valueAnimator = ValueAnimator.ofFloat(100f)
         valueAnimator.duration = 5 * 1000
         valueAnimator.interpolator = LinearInterpolator()
         var oldValue = 0.0f
         valueAnimator.addUpdateListener {
             val value = it.animatedValue as Float
-            Log.d(TAG, "animatedValue:$value")
-            binding.qqStepView.setCurProgressStep(value)
-            binding.customProgressBar.setCurrentProgress(value.toInt())
+//            Log.d(TAG, "animatedValue:$value")
+            binding?.qqStepView?.setCurProgressStep(value)
+            binding?.customProgressBar?.setCurrentProgress(value.toInt())
             if(value - oldValue > 10) {
                 oldValue = value
-                binding.shapeView.changeShape()
+                binding?.shapeView?.changeShape()
             }
         }
         valueAnimator.start()
@@ -94,5 +104,10 @@ class MainActivity : AppCompatActivity() {
                 setCurrentProgress(progress)
             }
         }
+    }
+
+    override fun onDestroy() {
+        binding = null
+        super.onDestroy()
     }
 }
