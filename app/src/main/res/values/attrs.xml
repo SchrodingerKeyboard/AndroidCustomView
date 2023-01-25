@@ -26,4 +26,8 @@
         <attr name="letterSelectedColor" format="color" />
         <attr name="letterTextSize" format="dimension"/>
     </declare-styleable>
+    <declare-styleable name="TagLayout">
+        <attr name="intervalWidth" format="dimension" />
+        <attr name="intervalHeight" format="dimension" />
+    </declare-styleable>
 </resources>
