@@ -1,4 +1,4 @@
-package com.schrodinger.androidcustomview.views
+package com.schrodinger.androidcustomview.customViews
 
 import android.content.Context
 import android.graphics.Canvas

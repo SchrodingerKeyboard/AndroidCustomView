@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.viewpager2.widget.ViewPager2
 import com.schrodinger.androidcustomview.databinding.ActivityViewPagerColorTrackTextViewBinding
-import com.schrodinger.androidcustomview.views.ColorTrackTextView
+import com.schrodinger.androidcustomview.customViews.ColorTrackTextView
 
 
 class ViewPagerColorTrackTextViewActivity : AppCompatActivity() {

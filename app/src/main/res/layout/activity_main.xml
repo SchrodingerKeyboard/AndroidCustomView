@@ -25,14 +25,14 @@
             app:layout_constraintStart_toEndOf="@id/clickText"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.schrodinger.androidcustomview.views.CustomTextView
+        <com.schrodinger.androidcustomview.customViews.CustomTextView
             android:id="@+id/customTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/clickText"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.schrodinger.androidcustomview.views.QQStepView
+        <com.schrodinger.androidcustomview.customViews.QQStepView
             android:id="@+id/qqStepView"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -46,7 +46,7 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
 
-        <com.schrodinger.androidcustomview.views.ColorTrackTextView
+        <com.schrodinger.androidcustomview.customViews.ColorTrackTextView
             android:id="@+id/colorTrackTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             app:layout_constraintStart_toEndOf="@id/clickRight"
             app:layout_constraintTop_toBottomOf="@id/colorTrackTextView" />
 
-        <com.schrodinger.androidcustomview.views.CustomProgressBar
+        <com.schrodinger.androidcustomview.customViews.CustomProgressBar
             android:id="@+id/customProgressBar"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -91,14 +91,14 @@
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/clickLeft"/>
-        <com.schrodinger.androidcustomview.views.ShapeView
+        <com.schrodinger.androidcustomview.customViews.ShapeView
             android:id="@+id/shapeView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/customProgressBar"/>
 
-        <com.schrodinger.androidcustomview.views.RatingView
+        <com.schrodinger.androidcustomview.customViews.RatingView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/darker_gray"
@@ -111,7 +111,7 @@
             app:selectedDrawable="@drawable/star_selected"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/shapeView"/>
-        <com.schrodinger.androidcustomview.views.LetterSideBar
+        <com.schrodinger.androidcustomview.customViews.LetterSideBar
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"

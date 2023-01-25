@@ -2,16 +2,13 @@ package com.schrodinger.androidcustomview
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.animation.LinearInterpolator
-import androidx.appcompat.app.AppCompatActivity
 import com.schrodinger.androidcustomview.databinding.ActivityMainBinding
-import com.schrodinger.androidcustomview.views.ColorTrackTextView
-import com.schrodinger.androidcustomview.views.CustomTextView
+import com.schrodinger.androidcustomview.customViews.ColorTrackTextView
+import com.schrodinger.androidcustomview.customViews.CustomTextView
 
 
 class MainActivity : BaseSkinActivity()/*Activity()*/ {
