@@ -2,6 +2,7 @@ package com.schrodinger.androidcustomview
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,19 +14,19 @@ import com.schrodinger.androidcustomview.views.ColorTrackTextView
 import com.schrodinger.androidcustomview.views.CustomTextView
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseSkinActivity()/*Activity()*/ {
     private val TAG = "MainActivityTAG";
     private var colorTrackTextView:ColorTrackTextView? = null
     private var binding:ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        colorTrackTextView = binding?.colorTrackTextView
+        setContentView(binding?.root)
         Log.d(TAG,"height:${binding?.colorTrackTextView?.measuredHeight}")
         binding?.root?.post {
             Log.d(TAG,"height2:${binding?.colorTrackTextView?.measuredHeight}")
         }
-        setContentView(binding?.root)
+        colorTrackTextView = binding?.colorTrackTextView
         binding?.clickText?.setOnClickListener {
             CustomTextView(context = this@MainActivity)
         }
