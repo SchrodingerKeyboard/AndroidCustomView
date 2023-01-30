@@ -128,8 +128,7 @@
         <com.schrodinger.androidcustomview.customViewGroup.TagLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:padding="10dp"
             app:intervalHeight="4dp"
             app:intervalWidth="4dp"
             app:layout_constraintHeight_min="80dp"

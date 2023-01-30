@@ -49,6 +49,7 @@ class TagLayout : ViewGroup {
         rowViews.clear()
         var rows = mutableListOf<View>()
         rowViews.add(rows)
+        //如果View item的高度不一致，可以放一个变量maxItemHeight存放最大的高度，每行高度用最大高度来相加。
         (0 until count).forEach {
             val childView = getChildAt(it)
             measureChild(childView, widthMeasureSpec, heightMeasureSpec)
@@ -79,7 +80,7 @@ class TagLayout : ViewGroup {
         var right = 0
         var bottom = 0
         rowViews.forEachIndexed { rowIndex, views ->
-            top += if (rowIndex == 0) 0 else views[0].measuredHeight + intervalHeight
+            top += if (rowIndex == 0) paddingTop else views[0].measuredHeight + intervalHeight
             left = paddingStart
             views.forEachIndexed { index, view ->
                 left += if (index == 0) 0 else view.measuredWidth + intervalWidth
