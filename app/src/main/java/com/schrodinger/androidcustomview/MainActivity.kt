@@ -3,9 +3,18 @@ package com.schrodinger.androidcustomview
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.TextView
+import android.widget.Toast
+import com.schrodinger.androidcustomview.customViewGroup.TagLayoutAdapter
 import com.schrodinger.androidcustomview.databinding.ActivityMainBinding
 import com.schrodinger.androidcustomview.customViews.ColorTrackTextView
 import com.schrodinger.androidcustomview.customViews.CustomTextView
@@ -13,15 +22,15 @@ import com.schrodinger.androidcustomview.customViews.CustomTextView
 
 class MainActivity : BaseSkinActivity()/*Activity()*/ {
     private val TAG = "MainActivityTAG";
-    private var colorTrackTextView:ColorTrackTextView? = null
-    private var binding:ActivityMainBinding? = null
+    private var colorTrackTextView: ColorTrackTextView? = null
+    private var binding: ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        Log.d(TAG,"height:${binding?.colorTrackTextView?.measuredHeight}")
+        Log.d(TAG, "height:${binding?.colorTrackTextView?.measuredHeight}")
         binding?.root?.post {
-            Log.d(TAG,"height2:${binding?.colorTrackTextView?.measuredHeight}")
+            Log.d(TAG, "height2:${binding?.colorTrackTextView?.measuredHeight}")
         }
         colorTrackTextView = binding?.colorTrackTextView
         binding?.clickText?.setOnClickListener {
@@ -43,13 +52,42 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
             right()
         }
         binding?.colorTrackActivity?.setOnClickListener {
-            startActivity(Intent(this@MainActivity,ViewPagerColorTrackTextViewActivity::class.java))
+            startActivity(Intent(this@MainActivity, ViewPagerColorTrackTextViewActivity::class.java))
+        }
+
+        binding?.tagAdapterLayout?.run {
+            val list = mutableListOf<String>()
+            list.add("Hello")
+            list.add("World")
+            list.add("Kotlin")
+            list.add("Java")
+            list.add("Android")
+            list.add("IOS")
+            list.add("ViewGroup")
+            list.add("LinearLayout")
+            list.add("MainActivity")
+            //初始化数据，添加item点击，长按事件
+            val adapter = object : TagLayoutAdapter<String>(datas = list, onItemClickListener = object :OnItemClickListener{
+                override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    Toast.makeText(this@MainActivity,list.get(position),Toast.LENGTH_SHORT).show()
+                }
+            }) {
+                override fun getView(position: Int, parent: ViewGroup): View {
+                    val textView = TextView(parent.context)//LayoutInflater.from(parent.context).inflate(R.layout.)
+                    textView.setText(getItem(position))
+                    textView.setPadding(10,0,10,0)
+                    textView.setTextColor(if (position % 3 == 0) Color.RED else if (position % 3 == 1) Color.BLACK else Color.BLUE)
+                    textView.setBackgroundResource(R.drawable.tag_background)
+                    return textView
+                }
+            }
+            setAdapter(adapter)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG,"height3:${binding?.colorTrackTextView?.measuredHeight}")
+        Log.d(TAG, "height3:${binding?.colorTrackTextView?.measuredHeight}")
     }
 
     private fun playAnim(binding: ActivityMainBinding?) {
@@ -64,7 +102,7 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
 //            Log.d(TAG, "animatedValue:$value")
             binding?.qqStepView?.setCurProgressStep(value)
             binding?.customProgressBar?.setCurrentProgress(value.toInt())
-            if(value - oldValue > 10) {
+            if (value - oldValue > 10) {
                 oldValue = value
                 binding?.shapeView?.changeShape()
             }
@@ -93,7 +131,7 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
     fun right() {
         colorTrackTextView?.run {
             setDirection(ColorTrackTextView.Direction.DIRECTION_RIGHT)
-            val animator: ValueAnimator = ObjectAnimator.ofFloat( 0f, 1f)
+            val animator: ValueAnimator = ObjectAnimator.ofFloat(0f, 1f)
             animator.setDuration(2000)
                 .start()
             animator.addUpdateListener { animation ->

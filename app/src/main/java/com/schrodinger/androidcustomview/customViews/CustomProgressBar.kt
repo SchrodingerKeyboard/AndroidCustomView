@@ -84,7 +84,7 @@ class CustomProgressBar : View {
         if (currentProgress > 0) {
             canvas?.drawArc(rectF, 0f, currentProgress/maxProgress.toFloat() * 360f, false, outerPaint)
         }
-        Log.d(TAG, "width:$width\theight:$height\tcx:$cx\tcy:$cy\tradius:$radius\thalfBorderWidth:$halfBorderWidth\tcurrentProgress:$currentProgress\tmaxProgress:$maxProgress")
+//        Log.d(TAG, "width:$width\theight:$height\tcx:$cx\tcy:$cy\tradius:$radius\thalfBorderWidth:$halfBorderWidth\tcurrentProgress:$currentProgress\tmaxProgress:$maxProgress")
 
         //画文本
         val text = "${((currentProgress / maxProgress.toFloat()) * 100).toInt().toString()}%"
