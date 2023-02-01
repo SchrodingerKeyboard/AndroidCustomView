@@ -2,6 +2,7 @@ package com.schrodinger.androidcustomview.customViewGroup
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.GestureDetector
 import android.widget.HorizontalScrollView
 
 class CustomSlidingMenu : HorizontalScrollView {
@@ -22,5 +23,14 @@ class CustomSlidingMenu : HorizontalScrollView {
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         super.onLayout(changed, l, t, r, b)
+//        GestureDetector.OnGestureListener
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+    }
+
+    override fun onFinishInflate() {
+        super.onFinishInflate()
     }
 }
