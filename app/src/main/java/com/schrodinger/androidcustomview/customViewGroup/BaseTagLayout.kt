@@ -3,6 +3,7 @@ package com.schrodinger.androidcustomview.customViewGroup
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.schrodinger.androidcustomview.R
@@ -98,6 +99,19 @@ open class BaseTagLayout : ViewGroup {
                 left = right
             }
         }
-        requestLayout()
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        Log.d(TouchView.TAG,"BaseTagLayout onTouchEvent before\tevent:$event")
+        val result = super.onTouchEvent(event)
+        Log.d(TouchView.TAG,"BaseTagLayout onTouchEvent result:$result\tevent:$event")
+        return result
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        Log.d(TouchView.TAG,"BaseTagLayout dispatchTouchEvent before\tevent:$event")
+        val result = super.dispatchTouchEvent(event)
+        Log.d(TouchView.TAG,"BaseTagLayout dispatchTouchEvent result:$result\tevent:$event")
+        return result
     }
 }

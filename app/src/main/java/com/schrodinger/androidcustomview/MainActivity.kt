@@ -5,8 +5,10 @@ import android.animation.ValueAnimator
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.method.Touch
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
@@ -15,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.TextView
 import android.widget.Toast
 import com.schrodinger.androidcustomview.customViewGroup.TagLayoutAdapter
+import com.schrodinger.androidcustomview.customViewGroup.TouchView
 import com.schrodinger.androidcustomview.databinding.ActivityMainBinding
 import com.schrodinger.androidcustomview.customViews.ColorTrackTextView
 import com.schrodinger.androidcustomview.customViews.CustomTextView
@@ -73,7 +76,7 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
                 }
             }) {
                 override fun getView(position: Int, parent: ViewGroup): View {
-                    val textView = TextView(parent.context)//LayoutInflater.from(parent.context).inflate(R.layout.)
+                    val textView = TouchView(parent.context)//LayoutInflater.from(parent.context).inflate(R.layout.)
                     textView.setText(getItem(position))
                     textView.setPadding(10,0,10,0)
                     textView.setTextColor(if (position % 3 == 0) Color.RED else if (position % 3 == 1) Color.BLACK else Color.BLUE)
@@ -145,5 +148,19 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
     override fun onDestroy() {
         binding = null
         super.onDestroy()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        Log.d(TouchView.TAG,"MainActivity dispatchTouchEvent before\tev:$ev")
+        val result = super.dispatchTouchEvent(ev)
+        Log.d(TouchView.TAG,"MainActivity dispatchTouchEvent result:$result\tev:$ev")
+        return result
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        Log.d(TouchView.TAG,"MainActivity onTouchEvent before event:$event")
+        val result = super.onTouchEvent(event)
+        Log.d(TouchView.TAG,"MainActivity onTouchEvent result:$result\tevent:$event")
+        return result
     }
 }
