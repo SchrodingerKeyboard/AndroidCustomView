@@ -30,4 +30,7 @@
         <attr name="intervalWidth" format="dimension" />
         <attr name="intervalHeight" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="CustomSlidingMenu">
+
+    </declare-styleable>
 </resources>

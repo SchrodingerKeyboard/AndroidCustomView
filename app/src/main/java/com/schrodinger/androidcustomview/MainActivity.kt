@@ -5,16 +5,13 @@ import android.animation.ValueAnimator
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.method.Touch
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
-import android.widget.TextView
 import android.widget.Toast
 import com.schrodinger.androidcustomview.customViewGroup.TagLayoutAdapter
 import com.schrodinger.androidcustomview.customViewGroup.TouchView
@@ -56,6 +53,10 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
         }
         binding?.colorTrackActivity?.setOnClickListener {
             startActivity(Intent(this@MainActivity, ViewPagerColorTrackTextViewActivity::class.java))
+        }
+
+        binding?.customSlidingMenu?.setOnClickListener {
+            startActivity(Intent(this@MainActivity, CustomSlidingMenuActivity::class.java))
         }
 
         binding?.tagAdapterLayout?.run {
