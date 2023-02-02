@@ -3,6 +3,7 @@ package com.schrodinger.androidcustomview.customViewGroup
 import android.content.Context
 import android.util.AttributeSet
 import android.view.GestureDetector
+import android.view.MotionEvent
 import android.widget.HorizontalScrollView
 
 class CustomSlidingMenu : HorizontalScrollView {
@@ -16,6 +17,14 @@ class CustomSlidingMenu : HorizontalScrollView {
         defStyleAttr,
         defStyleRes
     )
+
+    override fun scrollTo(x: Int, y: Int) {
+        super.scrollTo(x, y)
+    }
+
+    override fun onTouchEvent(ev: MotionEvent?): Boolean {
+        return super.onTouchEvent(ev)
+    }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
