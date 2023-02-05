@@ -5,11 +5,12 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 
 //https://blog.csdn.net/dakun012/article/details/79674012
-class CustomSlidingMenuItemView :View {
+class CustomSlidingMenuItemView :LinearLayout {
 
-    private val TAG = "CustomSlidingMenuTAG"
+    private val TAG = "CustomSlidingItemTAG"
     constructor(context: Context?) : this(context,null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs,0)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr,0)
@@ -19,7 +20,9 @@ class CustomSlidingMenuItemView :View {
         attrs: AttributeSet?,
         defStyleAttr: Int,
         defStyleRes: Int
-    ) : super(context, attrs, defStyleAttr, defStyleRes)
+    ) : super(context, attrs, defStyleAttr, defStyleRes) {
+        orientation = LinearLayout.VERTICAL
+    }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
