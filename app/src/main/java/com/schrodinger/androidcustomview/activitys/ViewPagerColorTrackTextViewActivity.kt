@@ -1,4 +1,4 @@
-package com.schrodinger.androidcustomview
+package com.schrodinger.androidcustomview.activitys
 
 import android.graphics.Color
 import android.os.Bundle

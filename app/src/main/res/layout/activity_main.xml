@@ -202,5 +202,13 @@
             app:intervalWidth="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tagLayout" />
+        <Button
+            android:id="@+id/testDragViewBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DragViewTest"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tagAdapterLayout"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -105,6 +105,10 @@ class CustomSlidingMenu : HorizontalScrollView {
         return super.onInterceptTouchEvent(ev)
     }
 
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        return super.dispatchTouchEvent(ev)
+    }
+
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
         Log.d(TAG,"onTouchEvent:ev:$ev")
         if(isInterceptTouch) {

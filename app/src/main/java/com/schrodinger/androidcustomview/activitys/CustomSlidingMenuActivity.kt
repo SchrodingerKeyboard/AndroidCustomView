@@ -1,4 +1,4 @@
-package com.schrodinger.androidcustomview
+package com.schrodinger.androidcustomview.activitys
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

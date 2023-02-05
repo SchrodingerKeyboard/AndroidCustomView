@@ -1,4 +1,4 @@
-package com.schrodinger.androidcustomview
+package com.schrodinger.androidcustomview.activitys
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -13,6 +13,7 @@ import android.view.animation.LinearInterpolator
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.Toast
+import com.schrodinger.androidcustomview.R
 import com.schrodinger.androidcustomview.customViewGroup.TagLayoutAdapter
 import com.schrodinger.androidcustomview.customViewGroup.TouchView
 import com.schrodinger.androidcustomview.databinding.ActivityMainBinding
@@ -57,6 +58,14 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
 
         binding?.customSlidingMenu?.setOnClickListener {
             startActivity(Intent(this@MainActivity, CustomSlidingMenuActivity::class.java))
+        }
+
+        binding?.testDragViewBtn?.setOnClickListener {
+
+        }
+
+        binding?.testDragViewBtn?.setOnClickListener {
+            startActivity(Intent(this@MainActivity,DragViewActivity::class.java))
         }
 
         binding?.tagAdapterLayout?.run {
