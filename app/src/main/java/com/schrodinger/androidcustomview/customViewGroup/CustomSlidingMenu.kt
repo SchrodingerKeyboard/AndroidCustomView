@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
-import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -26,6 +25,7 @@ class CustomSlidingMenu : HorizontalScrollView {
     private var menuIsOpen:Boolean = false
     private var menuWidth:Int = 0
     private var gestureDetector:GestureDetector? = null
+    private var isInterceptTouch = false
 
     constructor(context: Context?) : this(context,null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs,0)
@@ -89,9 +89,29 @@ class CustomSlidingMenu : HorizontalScrollView {
         super.scrollBy(x, y)
     }
 
+    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+        Log.d(TAG,"onInterceptTouchEvent:ev:$ev")
+        if(menuIsOpen) {
+            val currentX = ev?.x?:0f
+            if(currentX > menuWidth) {
+                //关闭菜单
+                closeMenu()
+                //子View不需要响应任何事件（点击和触摸）拦截子View的事件,虽然子View不处理，但本身的onTouch又会执行，close了，但是又会open
+                isInterceptTouch = true
+                return true
+            }
+
+        }
+        return super.onInterceptTouchEvent(ev)
+    }
+
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
         Log.d(TAG,"onTouchEvent:ev:$ev")
-        //处理手指快速滑动
+        if(isInterceptTouch) {
+            isInterceptTouch = false
+            return true
+        }
+        //处理手指快速滑动,这里的返回值，跟gestureDetector里的listener重写的返回值有关,可以看看里面的源码是怎么实现的。
         if(gestureDetector?.onTouchEvent(ev) == true) {
             return gestureDetector?.onTouchEvent(ev)?:false
         }
@@ -134,6 +154,7 @@ class CustomSlidingMenu : HorizontalScrollView {
 
         val imageView = ImageView(context).apply {
             setBackgroundColor(Color.parseColor("#99000000"))
+            alpha = 0.0f
         }
 
 
@@ -170,9 +191,19 @@ class CustomSlidingMenu : HorizontalScrollView {
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
         Log.d(TAG,"onScrollChanged l:$l\tt:$t\toldl:$oldl\toldt:$oldt")
         super.onScrollChanged(l, t, oldl, oldt)
-        //
+
+        val scale = l*1f/menuWidth
         menuView?.translationX = l * 0.8f
-        shadowView?.alpha = 1 - (l*1f/menuWidth)
+        shadowView?.alpha = 1 - scale
         Log.d(TAG,"onScrollChanged l:$l\tt:$t\toldl:$oldl\toldt:$oldt\tshadowView:$shadowView\talpha:$alpha")
+
+        val rightScale = 0.7f + 0.3f * scale
+        contentView?.run {
+            pivotX = 0f
+            pivotY = measuredHeight /2.0f
+            scaleX = rightScale
+            scaleY = rightScale
+        }
+
     }
 }
