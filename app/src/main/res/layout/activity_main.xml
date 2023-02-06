@@ -210,5 +210,15 @@
             android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tagAdapterLayout"/>
+
+        <Button
+            android:id="@+id/testDragListViewBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DragListViewTest"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toTopOf="@id/testDragViewBtn"
+            app:layout_constraintStart_toEndOf="@id/testDragViewBtn"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -68,6 +68,10 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
             startActivity(Intent(this@MainActivity,DragViewActivity::class.java))
         }
 
+        binding?.testDragListViewBtn?.setOnClickListener {
+            startActivity(Intent(this@MainActivity,DragListViewActivity::class.java))
+        }
+
         binding?.tagAdapterLayout?.run {
             val list = mutableListOf<String>()
             list.add("Hello")

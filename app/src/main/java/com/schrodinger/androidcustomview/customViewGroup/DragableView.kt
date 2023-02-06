@@ -95,7 +95,14 @@ class DragableView : FrameLayout {
                 Log.d(TAG, "onEdgeLock edgeFlags:$edgeFlags")
             }
 
+            override fun getViewHorizontalDragRange(child: View): Int {
+                //重写返回1，为的是让Button这些能消费Touch事件的View也能拖动
+                return 1
+            }
 
+            override fun getViewVerticalDragRange(child: View): Int {
+                return 1
+            }
         })
         viewDragHelper?.setEdgeTrackingEnabled(ViewDragHelper.EDGE_ALL)
     }
