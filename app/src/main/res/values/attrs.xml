@@ -33,4 +33,7 @@
     <declare-styleable name="CustomSlidingMenu">
 
     </declare-styleable>
+    <declare-styleable name="MyView">
+        <attr name="name" format="string"/>
+    </declare-styleable>
 </resources>
