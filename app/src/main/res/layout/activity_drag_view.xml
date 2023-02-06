@@ -10,22 +10,39 @@
         android:layout_height="match_parent"
         tools:context=".activitys.DragViewActivity">
 
-        <com.schrodinger.androidcustomview.customViewGroup.DragableListView
+        <com.schrodinger.androidcustomview.customViewGroup.DragableView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="@android:color/holo_blue_light"
-                android:orientation="vertical" />
 
-            <ListView
+
+            <FrameLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@android:color/holo_blue_light" />
+
+            <FrameLayout
                 android:id="@+id/listView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
                 android:background="@android:color/holo_red_light"/>
-        </com.schrodinger.androidcustomview.customViewGroup.DragableListView>
+            <FrameLayout
+                android:id="@+id/flingCapturedView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="top|left"
+                android:background="@android:color/holo_green_light" />
+
+            <Button
+                android:id="@+id/btnSmoothSlideView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="smoothSlideViewTo"
+                android:textAllCaps="true"
+                android:layout_gravity="bottom|left"/>
+        </com.schrodinger.androidcustomview.customViewGroup.DragableView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

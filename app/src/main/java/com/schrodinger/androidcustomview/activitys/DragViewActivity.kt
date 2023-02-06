@@ -14,19 +14,19 @@ class DragViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityDragViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.listView.adapter = object : BaseAdapter() {
-            override fun getCount() = 100
-
-            override fun getItem(position: Int) = position
-
-            override fun getItemId(position: Int) = position.toLong()
-
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-                val textView = TextView(this@DragViewActivity)
-                textView.text = "position:$position"
-                return textView
-            }
-        }
+//        binding.listView.adapter = object : BaseAdapter() {
+//            override fun getCount() = 100
+//
+//            override fun getItem(position: Int) = position
+//
+//            override fun getItemId(position: Int) = position.toLong()
+//
+//            override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+//                val textView = TextView(this@DragViewActivity)
+//                textView.text = "position:$position"
+//                return textView
+//            }
+//        }
 
     }
 }
