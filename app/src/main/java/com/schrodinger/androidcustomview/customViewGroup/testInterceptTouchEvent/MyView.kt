@@ -1,4 +1,4 @@
-package com.schrodinger.androidcustomview.testInterceptTouchEvent
+package com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent
 
 import android.content.Context
 import android.util.AttributeSet
@@ -22,18 +22,22 @@ class MyView : View {
         context?.let { _context ->
             attrs?.let { _attrs->
                 val typedArray = _context.obtainStyledAttributes(attrs,R.styleable.MyView)
-                name = typedArray.getString(R.styleable.MyView_name)
+                name = typedArray.getString(R.styleable.MyView_viewName)
                 typedArray.recycle()
             }
         }
     }
 
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
-        Log.d()
-        return super.dispatchTouchEvent(event)
+        Log.d(interceptTouchTAG,"before MyView:$name dispatchTouchEvent event:$event")
+        val result = super.dispatchTouchEvent(event)
+        Log.d(interceptTouchTAG,"after MyView:$name dispatchTouchEvent event:$event")
+        return result
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        Log.d(interceptTouchTAG,"before MyView:$name onTouchEvent event:$event")
         return super.onTouchEvent(event)
+        Log.d(interceptTouchTAG,"after MyView:$name onTouchEvent event:$event")
     }
 }

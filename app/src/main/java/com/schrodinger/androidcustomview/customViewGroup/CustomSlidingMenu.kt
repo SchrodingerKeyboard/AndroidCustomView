@@ -14,6 +14,7 @@ import android.widget.HorizontalScrollView
 import android.widget.ImageView
 
 //HorizontalScrollView是怎么实现滑动的 overScroll
+//https://cloud.tencent.com/developer/article/1383113?areaSource=104001.15&traceId=yT7CqqhFZOXMxchXeibeu
 class CustomSlidingMenu : HorizontalScrollView {
 
     private val TAG = "CustomSlidingMenuTAG"

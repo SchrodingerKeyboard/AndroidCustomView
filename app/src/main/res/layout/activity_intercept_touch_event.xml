@@ -1,9 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".testInterceptTouchEvent.InterceptTouchEventActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data />
+
+    <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:viewGroupName="LinearRoot">
+
+        <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyLinearLayout
+            android:id="@+id/myLinearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:viewGroupName="MyLinearLayout1"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyView
+                android:id="@+id/myView1_1"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_green_light"
+                app:viewName="MyView1-1" />
+            <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyView
+                android:id="@+id/myView1_2"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_orange_light"
+                app:viewName="MyView1-2"/>
+            <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyView
+                android:id="@+id/myView1_3"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_green_light"
+                app:viewName="MyView1-3"/>
+        </com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyLinearLayout>
+
+        <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyLinearLayout
+            android:id="@+id/myLinearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:viewGroupName="MyLinearLayout2"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyView
+                android:id="@+id/myView2_1"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_orange_light"
+                app:viewName="MyView2-1"/>
+            <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyView
+                android:id="@+id/myView2_2"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_green_light"
+                app:viewName="MyView2-2"/>
+            <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyView
+                android:id="@+id/myView2_3"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_orange_light"
+                app:viewName="MyView2-3"/>
+
+        </com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyLinearLayout>
+
+
+        <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyLinearLayout
+            android:id="@+id/myLinearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:viewGroupName="MyLinearLayout3"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyView
+                android:id="@+id/myView3_1"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_orange_light"
+                app:viewName="MyView3-1"/>
+
+            <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyView
+                android:id="@+id/myView3_2"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_green_light"
+                app:viewName="MyView3-2"/>
+
+            <com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyView
+                android:id="@+id/myView3_3"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_orange_light"
+                app:viewName="MyView3-3"/>
+
+        </com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyLinearLayout>
+
+    </com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.MyLinearLayout>
+
+
+</layout>

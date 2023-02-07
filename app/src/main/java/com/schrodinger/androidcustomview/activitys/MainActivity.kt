@@ -16,6 +16,7 @@ import android.widget.Toast
 import com.schrodinger.androidcustomview.R
 import com.schrodinger.androidcustomview.customViewGroup.TagLayoutAdapter
 import com.schrodinger.androidcustomview.customViewGroup.TouchView
+import com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.InterceptTouchEventActivity
 import com.schrodinger.androidcustomview.databinding.ActivityMainBinding
 import com.schrodinger.androidcustomview.customViews.ColorTrackTextView
 import com.schrodinger.androidcustomview.customViews.CustomTextView
@@ -99,6 +100,10 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
                 }
             }
             setAdapter(adapter)
+        }
+
+        binding?.testInterceptTouch?.setOnClickListener {
+            startActivity(Intent(this@MainActivity,InterceptTouchEventActivity::class.java))
         }
     }
 

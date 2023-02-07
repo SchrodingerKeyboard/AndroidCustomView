@@ -34,6 +34,9 @@
 
     </declare-styleable>
     <declare-styleable name="MyView">
-        <attr name="name" format="string"/>
+        <attr name="viewName" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="MyLinearLayout">
+        <attr name="viewGroupName" format="string"/>
     </declare-styleable>
 </resources>

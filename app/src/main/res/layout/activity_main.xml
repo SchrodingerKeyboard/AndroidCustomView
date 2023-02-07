@@ -220,5 +220,14 @@
             app:layout_constraintTop_toTopOf="@id/testDragViewBtn"
             app:layout_constraintStart_toEndOf="@id/testDragViewBtn"/>
 
+        <Button
+            android:id="@+id/testInterceptTouch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="事件拦截"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toTopOf="@id/testDragViewBtn"
+            app:layout_constraintStart_toEndOf="@id/testDragListViewBtn"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
