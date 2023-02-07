@@ -38,7 +38,30 @@ class DragableListView : FrameLayout {
                 var maxHeight = menuView?.height ?: 0
                 return if (dy > maxHeight) maxHeight else if (dy < 0) 0 else dy
             }
+
+            override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
+                super.onViewReleased(releasedChild, xvel, yvel)
+                //松开手时，菜单要么全展开，要么全关闭
+                val menuHeight = menuView?.height?:0
+                if(releasedChild.top*2 > menuHeight) {
+                    //展开
+                    viewDragHelper?.smoothSlideViewTo(releasedChild,0,menuHeight)
+                } else {
+                    //关闭
+                    viewDragHelper?.smoothSlideViewTo(releasedChild,0,0)
+                }
+                //必须调用这一行和continueSettling配合。
+                invalidate()
+            }
         })
+    }
+
+    override fun computeScroll() {
+        super.computeScroll()
+        //直到返回false
+        if (viewDragHelper?.continueSettling(true) == true) {
+            invalidate()
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -56,13 +79,34 @@ class DragableListView : FrameLayout {
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         Log.d(TAG, "dispatchTouchEvent event:$ev")
-//        requestDisallowInterceptTouchEvent(true)
+        //不要在这里判断是否需要拦截，直接在onInterceptTouchEvent里拦截。
         return super.dispatchTouchEvent(ev)
     }
 
+    private var downY = 0f
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         //这里一直滚动会让List无法滚动，要想办法适当时拦截，适当时放开。
-        return true
+        if(ev?.action == MotionEvent.ACTION_DOWN) {
+            downY = ev.y
+            viewDragHelper?.processTouchEvent(ev)
+        } else if(ev?.action == MotionEvent.ACTION_MOVE) {
+            //向下
+            if(ev.y-downY>0) {
+                dragableView?.let {
+                    if(it is ListView && it.firstVisiblePosition == 0 && it.getChildAt(0).top>=0) {
+                        return true
+                    }
+                }
+            } else {
+                //向上
+                dragableView?.let {
+                    if(it.top>0) {
+                        return true
+                    }
+                }
+            }
+        }
+        return super.onInterceptTouchEvent(ev)
     }
 
     override fun onFinishInflate() {
