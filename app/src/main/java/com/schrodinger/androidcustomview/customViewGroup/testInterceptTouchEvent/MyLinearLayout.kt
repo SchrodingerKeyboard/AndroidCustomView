@@ -31,22 +31,24 @@ class MyLinearLayout : LinearLayout {
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         Log.d(interceptTouchTAG,"before ViewGroup:$name dispatchTouchEvent event:$ev")
+        //DOWN事件会把标记重置，这里写了也没有用。
+        requestDisallowInterceptTouchEvent(true)
         val result = super.dispatchTouchEvent(ev)
-        Log.d(interceptTouchTAG,"after ViewGroup:$name dispatchTouchEvent event:$ev")
+        Log.d(interceptTouchTAG,"after ViewGroup:$name dispatchTouchEvent result:$result\tevent:$ev")
         return result
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         Log.d(interceptTouchTAG,"before ViewGroup:$name onTouchEvent event:$event")
         val result = super.onTouchEvent(event)
-        Log.d(interceptTouchTAG,"after ViewGroup:$name onTouchEvent event:$event")
+        Log.d(interceptTouchTAG,"after ViewGroup:$name onTouchEvent result:$result\tevent:$event")
         return result
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         Log.d(interceptTouchTAG,"before ViewGroup:$name onInterceptTouchEvent event:$ev")
-        val result = super.onInterceptTouchEvent(ev)
-        Log.d(interceptTouchTAG,"after ViewGroup:$name onInterceptTouchEvent event:$ev")
+        val result = true//super.onInterceptTouchEvent(ev)
+        Log.d(interceptTouchTAG,"after ViewGroup:$name onInterceptTouchEvent result:$result\tevent:$ev")
         return result
     }
 }

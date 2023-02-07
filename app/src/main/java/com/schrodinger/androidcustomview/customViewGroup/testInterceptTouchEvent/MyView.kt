@@ -31,13 +31,14 @@ class MyView : View {
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
         Log.d(interceptTouchTAG,"before MyView:$name dispatchTouchEvent event:$event")
         val result = super.dispatchTouchEvent(event)
-        Log.d(interceptTouchTAG,"after MyView:$name dispatchTouchEvent event:$event")
+        Log.d(interceptTouchTAG,"after MyView:$name dispatchTouchEvent result:$result\tevent:$event")
         return result
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         Log.d(interceptTouchTAG,"before MyView:$name onTouchEvent event:$event")
-        return super.onTouchEvent(event)
-        Log.d(interceptTouchTAG,"after MyView:$name onTouchEvent event:$event")
+        val result = super.onTouchEvent(event)
+        Log.d(interceptTouchTAG,"after MyView:$name onTouchEvent result:$result\tevent:$event")
+        return result
     }
 }
