@@ -27,7 +27,7 @@ class DragableListView : FrameLayout {
     ) : super(
         context, attrs, defStyleAttr, defStyleRes
     ) {
-        viewDragHelper = ViewDragHelper.create(this, object : ViewDragHelper.Callback() {
+        viewDragHelper = ViewDragHelper.create(this,1000f, object : ViewDragHelper.Callback() {
             override fun tryCaptureView(child: View, pointerId: Int): Boolean {
                 return dragableView == child
             }
@@ -83,11 +83,14 @@ class DragableListView : FrameLayout {
         return super.dispatchTouchEvent(ev)
     }
 
+
+    //可以参考 SwipeRefreshLayout 的canChildScrollUp的实现。
     private var downY = 0f
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         //这里一直滚动会让List无法滚动，要想办法适当时拦截，适当时放开。
         if(ev?.action == MotionEvent.ACTION_DOWN) {
             downY = ev.y
+            //DOWN时，实际return的是false,不会执行自身的onTouchEvent，所以需要调用一次processTouchEventss
             viewDragHelper?.processTouchEvent(ev)
         } else if(ev?.action == MotionEvent.ACTION_MOVE) {
             //向下
