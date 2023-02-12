@@ -16,7 +16,7 @@ class DragableView : FrameLayout {
     private var dragView: View? = null
     private var flingCapturedView: View? = null
     private var btnSmoothSlideView: View? = null
-    private var viewDragHelper: ViewDragHelper? = null
+    private lateinit var viewDragHelper: ViewDragHelper
     private var onEdgeDragStarted: Boolean = true
 
     constructor(context: Context) : this(context, null)
@@ -62,7 +62,7 @@ class DragableView : FrameLayout {
                     Log.d(TAG, "flingCapturedView")
                     //内部就是对mCapturedView的操作，所以这个方法只能对按下拖动的View有效。
                     //快速滑动，实际就是松手后会惯性滑动一段距离
-                    viewDragHelper?.flingCapturedView(
+                    viewDragHelper.flingCapturedView(
                         paddingLeft, paddingTop,
                         width - paddingRight - releasedChild.width,
                         height - paddingBottom - releasedChild.height
@@ -70,7 +70,7 @@ class DragableView : FrameLayout {
                 } else {
                     Log.d(TAG, "settleCapturedViewAt")
                     //把View定位回某处，这里是原处
-                    viewDragHelper?.settleCapturedViewAt(dragOriginalLeft, dragOriginalTop)
+                    viewDragHelper.settleCapturedViewAt(dragOriginalLeft, dragOriginalTop)
                 }
                 //重绘。
                 invalidate()
@@ -81,7 +81,7 @@ class DragableView : FrameLayout {
                 super.onEdgeDragStarted(edgeFlags, pointerId)
                 Log.d(TAG, "onEdgeDragStarted edgeFlags:$edgeFlags\tpointerId:$pointerId")
                 dragView?.let {
-                    viewDragHelper?.captureChildView(it, pointerId)
+                    viewDragHelper.captureChildView(it, pointerId)
                 }
             }
 
@@ -104,27 +104,27 @@ class DragableView : FrameLayout {
                 return 1
             }
         })
-        viewDragHelper?.setEdgeTrackingEnabled(ViewDragHelper.EDGE_ALL)
+        viewDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_ALL)
     }
 
     override fun computeScroll() {
         super.computeScroll()
         //直到返回false
-        if (viewDragHelper?.continueSettling(true) == true) {
+        if (viewDragHelper.continueSettling(true)) {
             invalidate()
         }
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         event?.run {
-            viewDragHelper?.processTouchEvent(this)
+            viewDragHelper.processTouchEvent(this)
         }
 
         return true
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        return viewDragHelper?.shouldInterceptTouchEvent(ev!!) ?: false
+        return viewDragHelper.shouldInterceptTouchEvent(ev!!) ?: false
     }
 
     override fun onFinishInflate() {
@@ -147,7 +147,7 @@ class DragableView : FrameLayout {
                 }
                 Log.d(TAG, "top:$top\tbtnSmoothSlideView:$btnSmoothSlideView\tflingCapturedView:$flingCapturedView")
                 //快速移动到某个地方。
-                viewDragHelper?.smoothSlideViewTo(it, 0, top)
+                viewDragHelper.smoothSlideViewTo(it, 0, top)
                 invalidate()
             }
         }

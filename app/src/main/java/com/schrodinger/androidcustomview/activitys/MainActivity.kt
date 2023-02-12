@@ -105,6 +105,9 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
         binding?.testInterceptTouch?.setOnClickListener {
             startActivity(Intent(this@MainActivity,InterceptTouchEventActivity::class.java))
         }
+        binding?.testSwipeRefreshLayout?.setOnClickListener {
+            startActivity(Intent(this@MainActivity,SwipeRefreshLayoutActivity::class.java))
+        }
     }
 
     override fun onResume() {
