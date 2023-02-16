@@ -11,6 +11,7 @@ import android.widget.ListView
 import androidx.core.widget.ListViewCompat
 import androidx.customview.widget.ViewDragHelper
 
+//理解SwipeRefreshLayout是怎么样实现下拉刷新的。
 class DragableListView : FrameLayout {
 
     private val TAG = "DragableListViewTAG"

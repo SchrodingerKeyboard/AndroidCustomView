@@ -238,5 +238,14 @@
             app:layout_constraintTop_toBottomOf="@id/testDragViewBtn"
             app:layout_constraintStart_toStartOf="parent"/>
 
+        <Button
+            android:id="@+id/testLockPatternView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LockPatternView"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toTopOf="@id/testSwipeRefreshLayout"
+            app:layout_constraintStart_toEndOf="@id/testSwipeRefreshLayout"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

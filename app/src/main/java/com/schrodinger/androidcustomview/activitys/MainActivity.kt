@@ -108,6 +108,9 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
         binding?.testSwipeRefreshLayout?.setOnClickListener {
             startActivity(Intent(this@MainActivity,SwipeRefreshLayoutActivity::class.java))
         }
+        binding?.testLockPatternView?.setOnClickListener {
+            startActivity(Intent(this@MainActivity,LockPatternActivity::class.java))
+        }
     }
 
     override fun onResume() {
