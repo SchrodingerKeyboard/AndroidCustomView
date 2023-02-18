@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Path
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -24,31 +25,40 @@ class LockPatternView : View {
     private val outerErrorColor = 0xff901032.toInt()
     private val innerErrorColor = 0xffea0945.toInt()
 
+    private var innerRadius = 15f
+    private var outerRadius = 0f
+
+
+    //画圆的画笔
     private val drawGesturePointPaint = Paint().apply {
         color = Color.BLUE
         isAntiAlias = true
         //设置画笔为空间
         style = Paint.Style.STROKE
-        strokeWidth = 5f
+        strokeWidth = 10f
     }
+
+    //画线的画笔
     private val drawLinePaint = Paint().apply {
         color = Color.BLUE
         isAntiAlias = true
         //设置画笔为空间
         style = Paint.Style.FILL
-        strokeWidth = 15f
+        strokeWidth = 5f
+//        strokeCap = Paint.Cap.ROUND
+
     }
 
+    //存九个点的数据集合
     private val lockPatternPoints = mutableListOf<LockPatternPoint>()
-    private val selectedPoints = mutableListOf<LockPatternPoint>()
 
-    private var innerRadius = 15f
-    private var outerRadius = 15f
+    //已经选择了的点的画笔
+    private val selectedPoints = mutableListOf<LockPatternPoint>()
 
     //密码长度必须大于等于5
     private val passwordLength = 5
 
-    private var lastMotionEvent: MotionEvent? = null
+    private var lastTouchPoint: LockPatternPoint? = null
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -72,15 +82,15 @@ class LockPatternView : View {
         //初始化九个点的信息
         lockPatternPoints.clear()
         var index = 0
+        val rowWidth = measuredWidth.toDouble() / 3
         (0..2).forEach { row ->
+            val cy = (row * rowWidth) + rowWidth / 2
             (0..2).forEach { column ->
-                val rowWidth = measuredWidth.toDouble() / 3
-                val cx = (row * rowWidth) + rowWidth / 2
-                val cy = column * rowWidth + rowWidth / 2
+                val cx = column * rowWidth + rowWidth / 2
                 lockPatternPoints.add(
                     LockPatternPoint(
-                        centerX = cx.toFloat(),
-                        centerY = cy.toFloat(),
+                        centerX = cx.toInt(),
+                        centerY = cy.toInt(),
                         index = index++,
                         state = LockPointState.Normal,
                     )
@@ -92,6 +102,7 @@ class LockPatternView : View {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+
         canvas?.run {
             //画出手势点
             drawGesturePoint(this)
@@ -110,103 +121,50 @@ class LockPatternView : View {
         lockPatternPoints.forEach {
             //半径，线的粗细，必要时可以做成配置。
             //画内圆小圆心，
-            drawGesturePointPaint.color =
-                if (it.state == LockPointState.Normal) innerNormalColor else if (it.state == LockPointState.Selected) innerPressedColor else innerErrorColor
-            canvas.drawCircle(it.centerX, it.centerY, innerRadius, drawGesturePointPaint)
+            drawGesturePointPaint.color = getPaintColor(state = it.state)
+
+            canvas.drawCircle(it.centerX.toFloat(), it.centerY.toFloat(), innerRadius, drawGesturePointPaint)
+
             //画外圆大圆心
-            drawGesturePointPaint.color =
-                if (it.state == LockPointState.Normal) outerNormalColor else if (it.state == LockPointState.Selected) outerPressedColor else outerErrorColor
-            canvas.drawCircle(it.centerX, it.centerY, outerRadius, drawGesturePointPaint)
+            drawGesturePointPaint.color = getPaintColor(state = it.state)
+
+            canvas.drawCircle(it.centerX.toFloat(), it.centerY.toFloat(), outerRadius, drawGesturePointPaint)
         }
+    }
+
+    private fun getPaintColor(state: LockPointState):Int {
+        return if (state == LockPointState.Normal) innerNormalColor else if (state == LockPointState.Selected) innerPressedColor else innerErrorColor
     }
 
     fun drawLineBetweenPoints(canvas: Canvas) {
+        drawLinePaint.color = getPaintColor(LockPointState.Selected)
         Log.d(TAG, "drawLineBetweenPoints size:${selectedPoints.size}")
         selectedPoints.forEachIndexed { index, lockPatternPoint ->
-            val nextLockPatternPoint: LockPatternPoint? =
-                if (index < selectedPoints.size - 1) {
-                    selectedPoints[index + 1]
-                } else {
-                    lastMotionEvent?.run {
-                        //这里直接getx,getY是错的。
-                        val lastX = getX(actionIndex)
-                        val lastY = getY(actionIndex)
-                        LockPatternPoint(
-                            centerX = lastX,
-                            centerY = lastY,
-                            index = 9,
-                            state = LockPointState.Normal
-                        )
-                    }
+            val nextLockPatternPoint = if(index>=selectedPoints.size-1) null else selectedPoints[index+1]
+            if(nextLockPatternPoint == null) {
+                lastTouchPoint?.let {
+//                    drawLineBetweenTwoPoint(canvas,lockPatternPoint,it)
                 }
-
-
-            val startPoint = if (nextLockPatternPoint == null) lockPatternPoint
-            else if (lockPatternPoint.centerX < nextLockPatternPoint.centerX || lockPatternPoint.centerY < nextLockPatternPoint.centerY) lockPatternPoint else nextLockPatternPoint
-            val endPoint =
-                if (startPoint == nextLockPatternPoint) lockPatternPoint else nextLockPatternPoint
-
-            endPoint?.run {
-                val dx = startPoint.getDistanceTo(endPoint)
-                val offsetX: Double = abs(startPoint.centerX - endPoint.centerX) / (dx / innerRadius)
-                val offsetY: Double = abs(startPoint.centerY - endPoint.centerY) / (dx / innerRadius)
-                canvas.drawLine(
-                    startPoint.centerX + offsetX.toFloat(),
-                    startPoint.centerY + offsetY.toFloat(),
-                    endPoint.centerX - offsetX.toFloat(),
-                    endPoint.centerY - offsetY.toFloat(),
-                    drawLinePaint
-                )
-            }
-
-
-            if (nextLockPatternPoint == null) {
-                //最后一个点到手指的线
-//                if(lastX!=null && lastY!=null) {
-//                    canvas.drawLine(
-//                        lockPatternPoint.centerX,
-//                        lockPatternPoint.centerY,
-//                        lastX ?: 0f,
-//                        lastY ?: 0f,
-//                        drawLinePaint
-//                    )
-//                }
             } else {
-                //两个点间的线,不能直接使用centerX/centerY作为起点来画，因为内圆是空心的，要画在内圆的边上，
-                // 所以需要计算，计算过程就是根据直角三角形和比例来算，两个点间组成大三角形，内圆圆心到边组成小三角形，角度相同，边长成比例
-
-
-//                //直角三角形的斜边
-//                val dx = lockPatternPoint.getDistanceTo(nextLockPatternPoint)
-//                var offsetX:Double = 0.toDouble()
-//                var offsetY:Double = 0.toDouble()
-//                if(lockPatternPoint.centerX == nextLockPatternPoint.centerX) {
-//                    offsetY = abs(lockPatternPoint.centerY-nextLockPatternPoint.centerY)/(dx/innerRadius)
-//                } else if(lockPatternPoint.centerY == nextLockPatternPoint.centerY) {
-//                    offsetX = abs(lockPatternPoint.centerX-nextLockPatternPoint.centerX)/(dx/innerRadius)
-//                }
-//
-//                //dx/radius = (dx/innerRadius/))/offset
-//                //dx/radius = x/offset
-//
-//
-//                canvas.drawLine(
-//                    lockPatternPoint.centerX+offsetX.toFloat(),
-//                    lockPatternPoint.centerY+offsetY.toFloat(),
-//                    nextLockPatternPoint.centerX-offsetX.toFloat(),
-//                    nextLockPatternPoint.centerY-offsetY.toFloat(),
-//                    drawLinePaint
-//                )
-                //这里的5.0是什么意思？
-//                val d = lockPatternPoint.getDistanceTo(nextLockPatternPoint)
-//                val rx = (((nextLockPatternPoint.centerX - lockPatternPoint.centerX) * innerRadius).toDouble() / 5.0 / d).toFloat()
-//                val ry = (((nextLockPatternPoint.centerY - lockPatternPoint.centerY) * innerRadius).toDouble() / 5.0 / d).toFloat()
-//                canvas.drawLine(lockPatternPoint.centerX + rx, lockPatternPoint.centerY + ry, nextLockPatternPoint.centerX - rx, nextLockPatternPoint.centerY - ry, drawLinePaint)
-
+                drawLineBetweenTwoPoint(canvas,lockPatternPoint,nextLockPatternPoint)
             }
         }
     }
 
+    private fun drawLineBetweenTwoPoint(canvas: Canvas,point1: LockPatternPoint,point2: LockPatternPoint,) {
+        //从上到下画，从左到右画，为了计算圆心到小圆的偏移
+        val startPoint = if(point1.centerX<point2.centerX || point1.centerY<point2.centerY) point1 else point2
+        val endPoint = if(startPoint===point1) point2 else point1
+        //要的效果是起点和终点不是在两个圆心上，而是在两个内圆边上，所以要求起点和终点x,y的偏移
+        //内圆半径/直角斜边 = x的偏移量/x1-x2
+        //内圆半径/直角斜边 = y的偏移量/y1-y2
+        val offsetX = if(endPoint.centerX!=startPoint.centerX) innerRadius/startPoint.getDistanceTo(endPoint) * (endPoint.centerX-startPoint.centerX) else 0
+        val offsetY = if(endPoint.centerY!=startPoint.centerY) innerRadius/startPoint.getDistanceTo(endPoint) * (endPoint.centerY-startPoint.centerY) else 0
+//        val offsetX = 0
+//        val offsetY = 0
+        Log.d(TAG,"offsetX:${offsetX.toFloat()}\toffsetY:${offsetY.toFloat()}")
+        canvas.drawLine(startPoint.centerX+offsetX.toFloat(),startPoint.centerY+offsetY.toFloat(),endPoint.centerX-offsetX.toFloat(),endPoint.centerY-offsetY.toFloat(),drawLinePaint)
+    }
 
     fun drawArrowsBetweenPoints(canvas: Canvas) {
 
@@ -214,20 +172,20 @@ class LockPatternView : View {
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
 
-
         if (event?.action == MotionEvent.ACTION_MOVE || event?.action == MotionEvent.ACTION_DOWN) {
             //判断是否划到了一个新的点,是的话放到一个集合里
             val point = findLockPatternPoint(event.x, event.y)
             if (point != null && !selectedPoints.contains(point)) {
                 point.state = LockPointState.Selected
                 selectedPoints.add(point)
+                Log.d(TAG,"lastMotionEvent:${event}")
             }
+            lastTouchPoint = LockPatternPoint(centerX = event.getX(event.actionIndex).toInt(), centerY = event.getY(event.actionIndex).toInt(),-1,LockPointState.Normal)
         } else if (event?.action == MotionEvent.ACTION_UP) {
             //计算密码是否符合规则等。
             selectedPoints.clear()
             resetLockPatternPointsState()
         }
-        lastMotionEvent = event
         invalidate()
         Log.d(TAG, "selectedPoints:$selectedPoints")
         return true
@@ -235,7 +193,7 @@ class LockPatternView : View {
 
     private fun findLockPatternPoint(x: Float, y: Float): LockPatternPoint? {
         return lockPatternPoints.firstOrNull {
-            it.getDistanceTo(x, y) <= outerRadius
+            it.getDistanceTo(x.toInt(), y.toInt()) <= outerRadius
         }
     }
 
@@ -255,19 +213,19 @@ class LockPatternView : View {
         )
         setMeasuredDimension(finalWidth, finalWidth)
         initLockPatternPoints()
-        outerRadius = measuredWidth / 3 / 2 * 0.618f
+        outerRadius = (measuredWidth.toDouble() / 3 / 2 * 0.618).toFloat()
     }
 }
 
 class LockPatternPoint(
-    val centerX: Float, val centerY: Float, val index: Int, var state: LockPointState
+    val centerX: Int, val centerY: Int, val index: Int, var state: LockPointState
 ) {
 
     fun getDistanceTo(point: LockPatternPoint): Double {
         return getDistanceTo(point.centerX, point.centerX)
     }
 
-    fun getDistanceTo(x: Float, y: Float): Double {
+    fun getDistanceTo(x: Int, y: Int): Double {
         val dx = abs(centerX - x)
         val dy = abs(centerY - y)
 
