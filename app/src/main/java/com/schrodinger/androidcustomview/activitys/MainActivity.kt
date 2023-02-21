@@ -14,6 +14,7 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.Toast
 import com.schrodinger.androidcustomview.R
+import com.schrodinger.androidcustomview.activitys.behavior.BehaviorActivity
 import com.schrodinger.androidcustomview.customViewGroup.TagLayoutAdapter
 import com.schrodinger.androidcustomview.customViewGroup.TouchView
 import com.schrodinger.androidcustomview.customViewGroup.testInterceptTouchEvent.InterceptTouchEventActivity
@@ -110,6 +111,9 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
         }
         binding?.testLockPatternView?.setOnClickListener {
             startActivity(Intent(this@MainActivity,LockPatternActivity::class.java))
+        }
+        binding?.testBehavior?.setOnClickListener {
+            startActivity(Intent(this@MainActivity,BehaviorActivity::class.java))
         }
     }
 

@@ -222,7 +222,7 @@ class LockPatternPoint(
 ) {
 
     fun getDistanceTo(point: LockPatternPoint): Double {
-        return getDistanceTo(point.centerX, point.centerX)
+        return getDistanceTo(point.centerX, point.centerY)
     }
 
     fun getDistanceTo(x: Int, y: Int): Double {
