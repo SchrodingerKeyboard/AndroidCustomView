@@ -28,6 +28,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_marginBottom="70dp"
+            android:layout_marginStart="16dp"
+            app:layout_behavior="com.schrodinger.androidcustomview.activitys.behavior.TranslationBehavior"
+            android:src="@android:drawable/ic_media_ff"
+            app:layout_scrollFlags="scroll|enterAlways|snap" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -36,18 +46,16 @@
             android:layout_gravity="bottom|end"
             android:layout_marginBottom="70dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            app:layout_behavior="com.schrodinger.androidcustomview.activitys.behavior.TranslationBehavior"
+            app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
             android:src="@android:drawable/ic_media_ff"
             app:layout_scrollFlags="scroll|enterAlways|snap" />
-<!--app:layout_behavior="com.darren.behaviordemo.TranslationBehavior"-->
 
         <LinearLayout
-            android:id="@+id/bottom_tab_layout"
+            android:id="@+id/bottomTabLayout"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:layout_alignParentBottom="true"
-            android:background="@android:color/white"
+            android:background="@android:color/darker_gray"
             app:layout_behavior="@string/bottom_sheet_behavior">
 
             <ImageView

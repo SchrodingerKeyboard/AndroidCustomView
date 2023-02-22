@@ -7,8 +7,9 @@ import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.schrodinger.androidcustomview.R
 
-
+//FloatingActionButton.Behavior 是和 Snackbars 相关的，当Snackbars弹出时，FloatingActionButton也上移。
 class TranslationBehavior: FloatingActionButton.Behavior {
 
     private val TAG = "TranslationBehaviorGAG"
@@ -18,6 +19,13 @@ class TranslationBehavior: FloatingActionButton.Behavior {
     private var mIsShow = false
     constructor() : super()
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+
+    private var bottomTabView:View? = null
+
+    override fun onLayoutChild(parent: CoordinatorLayout, child: FloatingActionButton, layoutDirection: Int): Boolean {
+        bottomTabView = parent.findViewById(R.id.bottomTabLayout)
+        return super.onLayoutChild(parent, child, layoutDirection)
+    }
 
     override fun onStartNestedScroll(
         coordinatorLayout: CoordinatorLayout,
@@ -50,6 +58,10 @@ class TranslationBehavior: FloatingActionButton.Behavior {
             if (!mIsShow) {
                 val params = child.layoutParams as CoordinatorLayout.LayoutParams
                 child.animate().translationY((params.bottomMargin + child.measuredHeight).toFloat()).setDuration(400).start()
+                bottomTabView?.let {tabView->
+                    val tabViewParams = child.layoutParams as CoordinatorLayout.LayoutParams
+                    tabView.animate()?.translationY((tabViewParams.bottomMargin + tabView.measuredHeight).toFloat())?.setDuration(400)?.start()
+                }
                 mIsShow = !mIsShow
             }
         }
@@ -57,6 +69,10 @@ class TranslationBehavior: FloatingActionButton.Behavior {
         if (dyConsumed < 0) {
             if (mIsShow) {
                 child.animate().translationY(0f).setDuration(400).start()
+                bottomTabView?.let {tabView->
+                    val tabViewParams = child.layoutParams as CoordinatorLayout.LayoutParams
+                    tabView.animate()?.translationY(0f)?.setDuration(400)?.start()
+                }
                 mIsShow = !mIsShow
             }
         }
