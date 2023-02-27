@@ -248,6 +248,7 @@
             app:layout_constraintStart_toEndOf="@id/testSwipeRefreshLayout"/>
 
         <Button
+<<<<<<< HEAD
             android:id="@+id/testStatusBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -255,5 +256,15 @@
             android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@id/testSwipeRefreshLayout"
             app:layout_constraintStart_toStartOf="parent"/>
+=======
+            android:id="@+id/testBehavior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="testBehavior"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@id/testSwipeRefreshLayout"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+>>>>>>> 177ad684bd52a3e8f86a023902541227099e1639
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

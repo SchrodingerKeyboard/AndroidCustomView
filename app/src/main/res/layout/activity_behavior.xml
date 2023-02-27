@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.darren.behaviordemo.MainActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tool_bar"
+                app:title="知乎首页"
+                app:titleTextColor="#FFFFFF"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_marginBottom="70dp"
+            android:layout_marginStart="16dp"
+            app:layout_behavior="com.schrodinger.androidcustomview.activitys.behavior.TranslationBehavior"
+            android:src="@android:drawable/ic_media_ff"
+            app:layout_scrollFlags="scroll|enterAlways|snap" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="70dp"
+            android:layout_marginEnd="16dp"
+            app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
+            android:src="@android:drawable/ic_media_ff"
+            app:layout_scrollFlags="scroll|enterAlways|snap" />
+
+        <LinearLayout
+            android:id="@+id/bottomTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray"
+            app:layout_behavior="@string/bottom_sheet_behavior">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@android:drawable/ic_secure" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@android:drawable/ic_lock_lock"
+                />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@android:drawable/ic_delete"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@android:drawable/ic_input_add"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
