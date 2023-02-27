@@ -111,6 +111,9 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
         binding?.testLockPatternView?.setOnClickListener {
             startActivity(Intent(this@MainActivity,LockPatternActivity::class.java))
         }
+        binding?.testStatusBar?.setOnClickListener {
+            startActivity(Intent(this@MainActivity,TestStatusBarActivity::class.java))
+        }
     }
 
     override fun onResume() {
