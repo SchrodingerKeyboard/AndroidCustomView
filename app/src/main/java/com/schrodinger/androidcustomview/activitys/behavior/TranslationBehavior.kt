@@ -22,6 +22,11 @@ class TranslationBehavior: FloatingActionButton.Behavior {
 
     private var bottomTabView:View? = null
 
+    override fun onAttachedToLayoutParams(lp: CoordinatorLayout.LayoutParams) {
+        //Behavior刚刚创建完毕时调用，Behavior是用反射实例化的。看源码。
+        super.onAttachedToLayoutParams(lp)
+    }
+
     override fun onLayoutChild(parent: CoordinatorLayout, child: FloatingActionButton, layoutDirection: Int): Boolean {
         bottomTabView = parent.findViewById(R.id.bottomTabLayout)
         return super.onLayoutChild(parent, child, layoutDirection)
