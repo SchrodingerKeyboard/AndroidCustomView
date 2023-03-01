@@ -67,11 +67,11 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
         }
 
         binding?.testDragViewBtn?.setOnClickListener {
-            startActivity(Intent(this@MainActivity,DragViewActivity::class.java))
+            startActivity(Intent(this@MainActivity, DragViewActivity::class.java))
         }
 
         binding?.testDragListViewBtn?.setOnClickListener {
-            startActivity(Intent(this@MainActivity,DragListViewActivity::class.java))
+            startActivity(Intent(this@MainActivity, DragListViewActivity::class.java))
         }
 
         binding?.tagAdapterLayout?.run {
@@ -86,15 +86,15 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
             list.add("LinearLayout")
             list.add("MainActivity")
             //初始化数据，添加item点击，长按事件
-            val adapter = object : TagLayoutAdapter<String>(datas = list, onItemClickListener = object :OnItemClickListener{
+            val adapter = object : TagLayoutAdapter<String>(datas = list, onItemClickListener = object : OnItemClickListener {
                 override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    Toast.makeText(this@MainActivity,list.get(position),Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, list.get(position), Toast.LENGTH_SHORT).show()
                 }
             }) {
                 override fun getView(position: Int, parent: ViewGroup): View {
                     val textView = TouchView(parent.context)//LayoutInflater.from(parent.context).inflate(R.layout.)
                     textView.setText(getItem(position))
-                    textView.setPadding(10,0,10,0)
+                    textView.setPadding(10, 0, 10, 0)
                     textView.setTextColor(if (position % 3 == 0) Color.RED else if (position % 3 == 1) Color.BLACK else Color.BLUE)
                     textView.setBackgroundResource(R.drawable.tag_background)
                     return textView
@@ -104,21 +104,20 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
         }
 
         binding?.testInterceptTouch?.setOnClickListener {
-            startActivity(Intent(this@MainActivity,InterceptTouchEventActivity::class.java))
+            startActivity(Intent(this@MainActivity, InterceptTouchEventActivity::class.java))
         }
         binding?.testSwipeRefreshLayout?.setOnClickListener {
-            startActivity(Intent(this@MainActivity,SwipeRefreshLayoutActivity::class.java))
+            startActivity(Intent(this@MainActivity, SwipeRefreshLayoutActivity::class.java))
         }
         binding?.testLockPatternView?.setOnClickListener {
-            startActivity(Intent(this@MainActivity,LockPatternActivity::class.java))
+            startActivity(Intent(this@MainActivity, LockPatternActivity::class.java))
         }
-<<<<<<< HEAD
+
         binding?.testStatusBar?.setOnClickListener {
-            startActivity(Intent(this@MainActivity,TestStatusBarActivity::class.java))
-=======
+            startActivity(Intent(this@MainActivity, TestStatusBarActivity::class.java))
+        }
         binding?.testBehavior?.setOnClickListener {
-            startActivity(Intent(this@MainActivity,BehaviorActivity::class.java))
->>>>>>> 177ad684bd52a3e8f86a023902541227099e1639
+            startActivity(Intent(this@MainActivity, BehaviorActivity::class.java))
         }
     }
 
@@ -185,16 +184,16 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        Log.d(TouchView.TAG,"MainActivity dispatchTouchEvent before\tev:$ev")
+        Log.d(TouchView.TAG, "MainActivity dispatchTouchEvent before\tev:$ev")
         val result = super.dispatchTouchEvent(ev)
-        Log.d(TouchView.TAG,"MainActivity dispatchTouchEvent result:$result\tev:$ev")
+        Log.d(TouchView.TAG, "MainActivity dispatchTouchEvent result:$result\tev:$ev")
         return result
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        Log.d(TouchView.TAG,"MainActivity onTouchEvent before event:$event")
+        Log.d(TouchView.TAG, "MainActivity onTouchEvent before event:$event")
         val result = super.onTouchEvent(event)
-        Log.d(TouchView.TAG,"MainActivity onTouchEvent result:$result\tevent:$event")
+        Log.d(TouchView.TAG, "MainActivity onTouchEvent result:$result\tevent:$event")
         return result
     }
 }

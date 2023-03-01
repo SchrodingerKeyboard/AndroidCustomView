@@ -256,11 +256,7 @@ class LockPatternPoint(
     val centerX: Float, val centerY: Float, val index: Int, var state: LockPointState
 ) {
 
-<<<<<<< HEAD
     fun getDistanceTo(point: LockPatternPoint): Float {
-=======
-    fun getDistanceTo(point: LockPatternPoint): Double {
->>>>>>> 177ad684bd52a3e8f86a023902541227099e1639
         return getDistanceTo(point.centerX, point.centerY)
     }
 

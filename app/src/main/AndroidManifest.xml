@@ -13,17 +13,11 @@
         android:theme="@style/Theme.AndroidCustomView"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
             android:name=".activitys.TestStatusBarActivity"
             android:exported="false" />
-=======
+        <activity
             android:name=".activitys.behavior.BehaviorActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
->>>>>>> 177ad684bd52a3e8f86a023902541227099e1639
+            android:exported="false"/>
         <activity
             android:name=".activitys.LockPatternActivity"
             android:exported="false" />
