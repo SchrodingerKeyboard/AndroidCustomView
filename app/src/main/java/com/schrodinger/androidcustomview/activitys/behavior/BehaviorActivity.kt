@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.snackbar.Snackbar
 import com.schrodinger.androidcustomview.R
 import com.schrodinger.androidcustomview.databinding.ActivityBehaviorBinding
-
+//https://blog.csdn.net/whoami_I/article/details/103270894/
+//CollapsingToolbarLayout
 class BehaviorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

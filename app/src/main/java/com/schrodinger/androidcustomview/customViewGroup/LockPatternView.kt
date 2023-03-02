@@ -78,6 +78,7 @@ class LockPatternView : View {
             it.state = state
         }
     }
+
     private fun changeToErrorState() {
         lastTouchPoint = null
         selectedPoints.forEach {
@@ -140,7 +141,7 @@ class LockPatternView : View {
         }
     }
 
-    private fun getPaintColor(state: LockPointState):Int {
+    private fun getPaintColor(state: LockPointState): Int {
         return if (state == LockPointState.Normal) innerNormalColor else if (state == LockPointState.Selected) innerPressedColor else innerErrorColor
     }
 
@@ -148,45 +149,50 @@ class LockPatternView : View {
         drawLinePaint.color = getPaintColor(LockPointState.Selected)
         Log.d(TAG, "drawLineBetweenPoints size:${selectedPoints.size}")
         selectedPoints.forEachIndexed { index, lockPatternPoint ->
-            val nextLockPatternPoint = if(index>=selectedPoints.size-1) null else selectedPoints[index+1]
-            if(nextLockPatternPoint == null) {
+            val nextLockPatternPoint = if (index >= selectedPoints.size - 1) null else selectedPoints[index + 1]
+            if (nextLockPatternPoint == null) {
                 lastTouchPoint?.let {
-                    drawLineBetweenTwoPoint(canvas,lockPatternPoint,it,true)
+                    drawLineBetweenTwoPoint(canvas, lockPatternPoint, it, true)
                 }
             } else {
-                drawLineBetweenTwoPoint(canvas,lockPatternPoint,nextLockPatternPoint)
+                drawLineBetweenTwoPoint(canvas, lockPatternPoint, nextLockPatternPoint)
             }
         }
     }
 
-    private fun drawLineBetweenTwoPoint(canvas: Canvas, pointFirst: LockPatternPoint, pointSecondOrTouch: LockPatternPoint, isSecondPointOnTouch:Boolean=false) {
-        if(isSecondPointOnTouch && pointFirst.getDistanceTo(pointSecondOrTouch)<innerRadius) {
+    private fun drawLineBetweenTwoPoint(
+        canvas: Canvas, pointFirst: LockPatternPoint, pointSecondOrTouch: LockPatternPoint, isSecondPointOnTouch: Boolean = false
+    ) {
+        if (isSecondPointOnTouch && pointFirst.getDistanceTo(pointSecondOrTouch) < innerRadius) {
             return
         }
         //从上到下画，从左到右画，为了计算圆心到小圆的偏移
-        val startPoint = if(pointFirst.centerX<pointSecondOrTouch.centerX || pointFirst.centerY<pointSecondOrTouch.centerY) pointFirst else pointSecondOrTouch
-        val endPoint = if(startPoint===pointFirst) pointSecondOrTouch else pointFirst
+        val startPoint =
+            if (pointFirst.centerX < pointSecondOrTouch.centerX || pointFirst.centerY < pointSecondOrTouch.centerY) pointFirst else pointSecondOrTouch
+        val endPoint = if (startPoint === pointFirst) pointSecondOrTouch else pointFirst
         //要的效果是起点和终点不是在两个圆心上，而是在两个内圆边上，所以要求起点和终点x,y的偏移
         //内圆半径/直角斜边 = x的偏移量/x1-x2
         //内圆半径/直角斜边 = y的偏移量/y1-y2
-        val offsetX = if(endPoint.centerX!=startPoint.centerX) innerRadius/startPoint.getDistanceTo(endPoint) * (endPoint.centerX-startPoint.centerX) else 0f
-        val offsetY = if(endPoint.centerY!=startPoint.centerY) innerRadius/startPoint.getDistanceTo(endPoint) * (endPoint.centerY-startPoint.centerY) else 0f
+        val offsetX =
+            if (endPoint.centerX != startPoint.centerX) innerRadius / startPoint.getDistanceTo(endPoint) * (endPoint.centerX - startPoint.centerX) else 0f
+        val offsetY =
+            if (endPoint.centerY != startPoint.centerY) innerRadius / startPoint.getDistanceTo(endPoint) * (endPoint.centerY - startPoint.centerY) else 0f
         var finalStartX = startPoint.centerX + offsetX
         var finalStartY = startPoint.centerY + offsetY
         var finalEndX = endPoint.centerX - offsetX
         var finalEndY = endPoint.centerY - offsetY
 
-        if(isSecondPointOnTouch && startPoint===pointSecondOrTouch) {
+        if (isSecondPointOnTouch && startPoint === pointSecondOrTouch) {
             finalStartX -= offsetX
             finalStartY -= offsetY
         }
 
-        if(isSecondPointOnTouch && endPoint===pointSecondOrTouch) {
+        if (isSecondPointOnTouch && endPoint === pointSecondOrTouch) {
             finalEndX += offsetX
             finalEndY += offsetY
         }
-        drawLinePaint.color = getPaintColor(if(startPoint==null) endPoint.state else startPoint.state)
-        canvas.drawLine(finalStartX,finalStartY,finalEndX,finalEndY,drawLinePaint)
+        drawLinePaint.color = getPaintColor(if (startPoint == null) endPoint.state else startPoint.state)
+        canvas.drawLine(finalStartX, finalStartY, finalEndX, finalEndY, drawLinePaint)
     }
 
     fun drawArrowsBetweenPoints(canvas: Canvas) {
@@ -196,7 +202,7 @@ class LockPatternView : View {
     override fun onTouchEvent(event: MotionEvent?): Boolean {
 
         if (event?.action == MotionEvent.ACTION_MOVE || event?.action == MotionEvent.ACTION_DOWN) {
-            if(event.action == MotionEvent.ACTION_DOWN) {
+            if (event.action == MotionEvent.ACTION_DOWN) {
                 selectedPoints.clear()
                 resetAllLockPatternPointsState(LockPointState.Normal)
             }
@@ -206,12 +212,14 @@ class LockPatternView : View {
             if (point != null && !selectedPoints.contains(point)) {
                 point.state = LockPointState.Selected
                 selectedPoints.add(point)
-                Log.d(TAG,"lastMotionEvent:${event}")
+                Log.d(TAG, "lastMotionEvent:${event}")
             }
-            lastTouchPoint = LockPatternPoint(centerX = event.getX(event.actionIndex), centerY = event.getY(event.actionIndex),-1,LockPointState.Normal)
+            lastTouchPoint = LockPatternPoint(
+                centerX = event.getX(event.actionIndex), centerY = event.getY(event.actionIndex), -1, LockPointState.Normal
+            )
         } else if (event?.action == MotionEvent.ACTION_UP) {
             //计算密码是否符合规则等。
-            if(selectedPoints.size >= passwordLength) {
+            if (selectedPoints.size >= passwordLength) {
                 //回调成功
                 selectedPoints.clear()
                 resetAllLockPatternPointsState(LockPointState.Normal)
@@ -234,8 +242,7 @@ class LockPatternView : View {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 //        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val width =
-            MeasureSpec.getSize(widthMeasureSpec) - paddingStart - paddingEnd - paddingLeft - paddingRight
+        val width = MeasureSpec.getSize(widthMeasureSpec) - paddingStart - paddingEnd - paddingLeft - paddingRight
         val height = MeasureSpec.getSize(heightMeasureSpec) - paddingTop - paddingBottom
         val finalWidth = min(width, height)
 
@@ -248,12 +255,15 @@ class LockPatternView : View {
         )
         setMeasuredDimension(finalWidth, finalWidth)
         initLockPatternPoints()
-        outerRadius = ((measuredWidth.toFloat()-4) / 3 / 2 * 0.618).toFloat()
+        outerRadius = ((measuredWidth.toFloat() - 4) / 3 / 2 * 0.618).toFloat()
     }
 }
 
 class LockPatternPoint(
-    val centerX: Float, val centerY: Float, val index: Int, var state: LockPointState
+    val centerX: Float,
+    val centerY: Float,
+    val index: Int,
+    var state: LockPointState,
 ) {
 
     fun getDistanceTo(point: LockPatternPoint): Float {
