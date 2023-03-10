@@ -266,5 +266,14 @@
             android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/testSwipeRefreshLayout" />
+
+        <Button
+            android:id="@+id/JavaActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="JavaActivity"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toEndOf="@id/testBehavior"
+            app:layout_constraintTop_toBottomOf="@id/testSwipeRefreshLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

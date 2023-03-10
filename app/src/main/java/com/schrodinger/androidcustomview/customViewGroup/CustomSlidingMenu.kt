@@ -39,7 +39,7 @@ class CustomSlidingMenu : HorizontalScrollView {
     ) {
         //加上这个，体验会好很多，就是在快速滑动(按下，快速滑动，抬起)，但是滑动距离很短时，可以看出区别
         gestureDetector= GestureDetector(context,object : SimpleOnGestureListener() {
-            override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+            override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
                 //当手指快速滑动时回调的方法
                 Log.d(TAG,"onFling velocityX:$velocityX\tvelocityY:$velocityY\te1:$e1\te2:$e2")
                 if(menuIsOpen) {
@@ -116,9 +116,11 @@ class CustomSlidingMenu : HorizontalScrollView {
             isInterceptTouch = false
             return true
         }
-        //处理手指快速滑动,这里的返回值，跟gestureDetector里的listener重写的返回值有关,可以看看里面的源码是怎么实现的。
-        if(gestureDetector?.onTouchEvent(ev) == true) {
-            return gestureDetector?.onTouchEvent(ev)?:false
+        ev?.let {
+            //处理手指快速滑动,这里的返回值，跟gestureDetector里的listener重写的返回值有关,可以看看里面的源码是怎么实现的。
+            if(gestureDetector?.onTouchEvent(ev) == true) {
+                return gestureDetector?.onTouchEvent(ev)?:false
+            }
         }
 
         when(ev?.action) {

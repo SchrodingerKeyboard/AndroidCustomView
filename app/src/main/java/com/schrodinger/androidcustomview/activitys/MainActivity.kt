@@ -2,6 +2,7 @@ package com.schrodinger.androidcustomview.activitys
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -29,6 +30,11 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
     private var binding: ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("WINDOW_SERVICE", "window.windowManager:${window.windowManager}")
+        Log.d("WINDOW_SERVICE", "getSystemService(Context.WINDOW_SERVICE):${getSystemService(Context.WINDOW_SERVICE)}")
+        Log.d("WINDOW_SERVICE", "applicationContext.getSystemService(Context.WINDOW_SERVICE):${applicationContext.getSystemService(Context.WINDOW_SERVICE)}")
+        Log.d("WINDOW_SERVICE", "baseContext.getSystemService(Context.WINDOW_SERVICE):${baseContext.getSystemService(Context.WINDOW_SERVICE)}")
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         Log.d(TAG, "height:${binding?.colorTrackTextView?.measuredHeight}")
@@ -118,6 +124,9 @@ class MainActivity : BaseSkinActivity()/*Activity()*/ {
         }
         binding?.testBehavior?.setOnClickListener {
             startActivity(Intent(this@MainActivity, BehaviorActivity::class.java))
+        }
+        binding?.JavaActivity?.setOnClickListener {
+            startActivity(Intent(this@MainActivity, JavaActivity::class.java))
         }
     }
 

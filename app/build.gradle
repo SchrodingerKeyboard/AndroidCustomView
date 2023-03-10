@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.schrodinger.androidcustomview'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.schrodinger.androidcustomview"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
